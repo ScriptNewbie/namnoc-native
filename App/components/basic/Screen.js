@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 function Screen({ style, children }) {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      <View>{children}</View>
+      <View style={styles.inner}>{children}</View>
     </SafeAreaView>
   );
 }

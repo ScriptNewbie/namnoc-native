@@ -1,7 +1,8 @@
-import { StyleSheet, Text } from "react-native";
-import DevicesList from "./components/devices/DevicesList";
+import { StyleSheet, FlatList, StatusBar } from "react-native";
+import DevicesList from "./App/components/devices/DevicesList";
 
-import Screen from "./components/basic/Screen";
+import Screen from "./App/components/basic/Screen";
+import Text from "./App/components/basic/Text";
 
 const devices = [
   {
@@ -49,14 +50,37 @@ const newDevices = [
 ];
 
 export default function App() {
+  const items = [
+    { id: "1", content: <Text style={styles.texts}>Pokoje:</Text> },
+    {
+      id: "2",
+      content: <DevicesList devices={devices} nameKey="name"></DevicesList>,
+    },
+    {
+      id: "3",
+      content: (
+        <Text style={styles.texts}>Urządzenia oczekujące na parowanie:</Text>
+      ),
+    },
+    {
+      id: "4",
+      content: <DevicesList devices={newDevices} nameKey="id"></DevicesList>,
+    },
+  ];
   return (
-    <Screen style={styles.container}>
-      <DevicesList devices={devices} nameKey="name"></DevicesList>
-      <DevicesList devices={newDevices} nameKey="id"></DevicesList>
+    <Screen>
+      <StatusBar translucent barStyle="dark-content" />
+      <FlatList
+        style={styles.container}
+        data={items}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => item.content}
+      />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  texts: { fontSize: 24, marginBottom: 10, marginTop: 10 },
+  container: { paddingLeft: 10, paddingRight: 10 },
 });
