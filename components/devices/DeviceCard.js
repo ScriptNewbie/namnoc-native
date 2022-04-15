@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import colors from "../config/colors";
+import colors from "../../config/colors";
 import Text from "../basic/Text";
 
 function DeviceCard({ name, ip, temp, alive }) {
