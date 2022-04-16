@@ -1,8 +1,10 @@
 const lightModeColors = {
   soft: "grey",
-  success: "green",
+  apply: "green",
+  discard: "red",
   primary: "black",
   background: "white",
+  white: "white",
 };
 
 const colors = {

@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import colors from "../../config/colors";
 import Text from "../basic/Text";
+import Button from "../basic/Button";
 
 function DeviceCard({ device }) {
   const { ip, temp, alive, id } = device;
@@ -20,9 +21,14 @@ function DeviceCard({ device }) {
   let rightAction = <View />;
   if (name) {
     rightAction = (
-      <View style={styles.delete}>
+      <Button
+        style={styles.delete}
+        onPress={() => {
+          console.log(device);
+        }}
+      >
         <FontAwesome name="trash" size={30} color={"white"} />
-      </View>
+      </Button>
     );
   } else name = id;
   return (
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   ip: {
-    color: colors.light.success,
+    color: colors.light.apply,
   },
   leftSide: {
     flex: 1,
@@ -86,12 +92,10 @@ const styles = StyleSheet.create({
     color: colors.light.soft,
   },
   delete: {
-    backgroundColor: "red",
+    backgroundColor: colors.light.discard,
     height: "100%",
-    borderRadius: 10,
     padding: 20,
     marginLeft: 10,
-    justifyContent: "center",
   },
 });
 
