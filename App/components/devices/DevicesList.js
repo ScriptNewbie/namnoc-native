@@ -1,11 +1,7 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import DeviceCard from "./DeviceCard";
 
-function DeviceList({ devices, nameKey }) {
-  let rightAction = false;
-  if (nameKey === "name") {
-    rightAction = true;
-  }
+function DeviceList({ devices }) {
   return (
     <FlatList
       ItemSeparatorComponent={() => {
@@ -13,15 +9,7 @@ function DeviceList({ devices, nameKey }) {
       }}
       data={devices}
       keyExtractor={(device) => device.id.toString()}
-      renderItem={({ item }) => (
-        <DeviceCard
-          alive={item.alive}
-          name={item[nameKey]}
-          temp={item.temp}
-          ip={item.ip}
-          enableRightAction={rightAction}
-        />
-      )}
+      renderItem={({ item }) => <DeviceCard device={item} />}
     />
   );
 }

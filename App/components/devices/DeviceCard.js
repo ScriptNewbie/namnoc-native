@@ -6,21 +6,25 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import colors from "../../config/colors";
 import Text from "../basic/Text";
 
-function DeviceCard({ name, ip, temp, alive, enableRightAction }) {
+function DeviceCard({ device }) {
+  const { ip, temp, alive, id } = device;
+  let { name } = device;
   let opacity = {};
   let notAliveIpColor = {};
+  //Device grayed out if not alieve
   if (!alive) {
-    opacity = { opacity: styles.notAlive.opacity };
-    notAliveIpColor = { color: styles.notAlive.color };
+    opacity = StyleSheet.create({ opacity: styles.notAlive.opacity });
+    notAliveIpColor = StyleSheet.create({ color: styles.notAlive.color });
   }
+  //Delete option available if device paired
   let rightAction = <View />;
-  if (enableRightAction) {
+  if (name) {
     rightAction = (
       <View style={styles.delete}>
         <FontAwesome name="trash" size={30} color={"white"} />
       </View>
     );
-  }
+  } else name = id;
   return (
     <GestureHandlerRootView>
       <Swipeable renderRightActions={() => rightAction}>
