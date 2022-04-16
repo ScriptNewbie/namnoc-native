@@ -1,75 +1,77 @@
 import { StyleSheet, FlatList, StatusBar } from "react-native";
+import React, { useState } from "react";
 
 import DevicesList from "../components/devices/DevicesList";
 import Screen from "../components/basic/Screen";
 import Text from "../components/basic/Text";
-
-const devices = [
-  {
-    id: "1",
-    name: "Sypialnia",
-    ip: "192.168.120.1",
-    temp: "22.0",
-    alive: 5,
-  },
-  {
-    id: "2",
-    name: "Kuchnia",
-    ip: "192.168.120.2",
-    temp: "22.1",
-    alive: 5,
-  },
-  {
-    id: "3",
-    name: "Gościnny",
-    ip: "192.168.120.4",
-    temp: "21.8",
-    alive: 5,
-  },
-];
-
-const newDevices = [
-  {
-    id: "E3:98:71:63:7A:71",
-    ip: "192.168.120.1",
-    temp: "22.0",
-    alive: 5,
-  },
-  {
-    id: "51:9C:7F:00:BC:30",
-    ip: "192.168.120.2",
-    temp: "22.1",
-    alive: 5,
-  },
-  {
-    id: "36:23:6B:73:0E:75",
-    ip: "192.168.120.4",
-    temp: "21.8",
-    alive: 5,
-  },
-];
+import TopBar from "../components/topBar";
 
 function Main() {
-  const items = [
-    { id: "1", content: <Text style={styles.texts}>Pokoje:</Text> },
+  const [devices, setDevices] = useState([
+    {
+      id: "1",
+      name: "Sypialnia",
+      ip: "192.168.120.1",
+      temp: "22.0",
+      alive: 5,
+    },
     {
       id: "2",
-      content: <DevicesList devices={devices}></DevicesList>,
+      name: "Kuchnia",
+      ip: "192.168.120.2",
+      temp: "22.1",
+      alive: 5,
     },
     {
       id: "3",
+      name: "Gościnny",
+      ip: "192.168.120.4",
+      temp: "21.8",
+      alive: 5,
+    },
+  ]);
+
+  const [newDevices, setNewDevices] = useState([
+    {
+      id: "E3:98:71:63:7A:71",
+      ip: "192.168.120.1",
+      temp: "22.0",
+      alive: 5,
+    },
+    {
+      id: "51:9C:7F:00:BC:30",
+      ip: "192.168.120.2",
+      temp: "22.1",
+      alive: 5,
+    },
+    {
+      id: "36:23:6B:73:0E:75",
+      ip: "192.168.120.4",
+      temp: "21.8",
+      alive: 5,
+    },
+  ]);
+
+  const items = [
+    { id: "1", content: <TopBar /> },
+    { id: "10", content: <Text style={styles.texts}>Pokoje:</Text> },
+    {
+      id: "20",
+      content: <DevicesList devices={devices}></DevicesList>,
+    },
+    {
+      id: "30",
       content: (
         <Text style={styles.texts}>Urządzenia oczekujące na parowanie:</Text>
       ),
     },
     {
-      id: "4",
+      id: "40",
       content: <DevicesList devices={newDevices}></DevicesList>,
     },
   ];
   return (
     <Screen>
-      <StatusBar translucent barStyle="dark-content" />
       <FlatList
         style={styles.container}
         data={items}
