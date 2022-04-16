@@ -1,4 +1,4 @@
-const lightColors = {
+const lightModeColors = {
   soft: "grey",
   success: "green",
   primary: "black",
@@ -6,7 +6,7 @@ const lightColors = {
 };
 
 const colors = {
-  light: lightColors,
+  light: lightModeColors,
 };
 
 export default colors;
