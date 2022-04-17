@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, StatusBar } from "react-native";
 
-import Screen from "./App/screens/Main";
+import Screen from "./App/screens/Settings";
 
 export default function App() {
   return <Screen />;

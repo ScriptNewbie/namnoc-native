@@ -5,7 +5,7 @@ import Furnace from "./Furnace";
 import Button from "../basic/Button";
 import SystemTime from "./SystemTime";
 
-const furnace = { on: 1, ip: "", alive: 1, timeStamp: 0 };
+const furnace = { on: 0, ip: "", alive: 1, timeStamp: 0 };
 
 function TopBar() {
   return (

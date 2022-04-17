@@ -13,6 +13,7 @@ function SystemTime({ date }) {
 const styles = StyleSheet.create({
   systemTime: {
     alignItems: "center",
+    justifyContent: "center",
   },
   texts: { fontSize: 16 },
 });
