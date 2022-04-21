@@ -4,6 +4,8 @@ import Text from "./Text";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import React, { useState } from "react";
 
+import fonts from "../../config/fonts";
+
 function TimeInput({
   label,
   style,
@@ -50,12 +52,12 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    fontSize: 18,
+    fontSize: fonts.sizeDefault,
     padding: 5,
     borderColor: colors.light.soft,
   },
   label: {
-    fontSize: 18,
+    fontSize: fonts.sizeDefault,
   },
   container: {
     flex: 1,

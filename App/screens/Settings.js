@@ -8,6 +8,7 @@ import TimeInput from "../components/basic/TimeInput";
 import BooleanInput from "../components/basic/BooleanInput";
 import Button from "../components/basic/Button";
 import colors from "../config/colors";
+import fonts from "../config/fonts";
 
 function Settings() {
   const [dayBegin, setDayBegin] = useState("08:00");
@@ -59,11 +60,11 @@ function Settings() {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 28,
+    fontSize: fonts.sizeTitle,
   },
   databaseHeader: {
     marginTop: 20,
-    fontSize: 24,
+    fontSize: fonts.sizeHeader,
   },
   dayBeginEnd: {
     flexDirection: "row",

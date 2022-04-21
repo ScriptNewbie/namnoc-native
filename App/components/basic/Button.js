@@ -1,5 +1,6 @@
 import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 import colors from "../../config/colors";
+import fonts from "../../config/fonts";
 
 import Text from "./Text";
 
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.light.white,
-    fontSize: 18,
+    fontSize: fonts.sizeDefault,
   },
 });
 

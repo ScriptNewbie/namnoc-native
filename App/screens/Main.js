@@ -5,6 +5,7 @@ import DevicesList from "../components/devices/DevicesList";
 import Screen from "../components/basic/Screen";
 import Text from "../components/basic/Text";
 import TopBar from "../components/topBar";
+import fonts from "../config/fonts";
 
 function Main() {
   const [devices, setDevices] = useState([
@@ -95,7 +96,7 @@ function Main() {
 }
 
 const styles = StyleSheet.create({
-  texts: { fontSize: 24, marginBottom: 10, marginTop: 10 },
+  texts: { fontSize: fonts.sizeHeader, marginBottom: 10, marginTop: 10 },
   container: { paddingLeft: 10, paddingRight: 10 },
 });
 

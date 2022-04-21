@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    fontSize: 18,
+    fontSize: fonts.sizeDefault,
     padding: 5,
     fontFamily: fonts.default,
     borderColor: colors.light.soft,
   },
   label: {
-    fontSize: 18,
+    fontSize: fonts.sizeDefault,
   },
   container: {
     flex: 1,

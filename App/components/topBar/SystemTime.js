@@ -1,4 +1,5 @@
 import { StyleSheet, View } from "react-native";
+import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 
 function SystemTime({ date }) {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  texts: { fontSize: 16 },
+  texts: { fontSize: fonts.sizeSmall },
 });
 
 export default SystemTime;

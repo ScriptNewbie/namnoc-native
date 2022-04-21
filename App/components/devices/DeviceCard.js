@@ -4,6 +4,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import colors from "../../config/colors";
+import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 import Button from "../basic/Button";
 
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light.background,
   },
   name: {
-    fontSize: 20,
+    fontSize: fonts.sizeBig,
   },
   ip: {
     color: colors.light.apply,
@@ -81,10 +82,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   temp: {
-    fontSize: 27,
+    fontSize: fonts.sizeTitle,
   },
   tempIcon: {
-    marginBottom: -3,
+    marginBottom: -1,
     marginRight: 5,
   },
   notAlive: {
