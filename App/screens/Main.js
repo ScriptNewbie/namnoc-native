@@ -52,12 +52,24 @@ function Main() {
     },
   ]);
 
+  const deleteDevice = (device) => {
+    const devicesCopy = [...devices];
+    const current = devicesCopy.find((c) => c.id === device.id);
+    devicesCopy.splice(devicesCopy.indexOf(current), 1);
+    setDevices(devicesCopy);
+  };
+
   const items = [
     { id: "1", content: <TopBar /> },
     { id: "10", content: <Text style={styles.texts}>Pokoje:</Text> },
     {
       id: "20",
-      content: <DevicesList devices={devices}></DevicesList>,
+      content: (
+        <DevicesList
+          deleteDevice={deleteDevice}
+          devices={devices}
+        ></DevicesList>
+      ),
     },
     {
       id: "30",

@@ -7,7 +7,7 @@ import colors from "../../config/colors";
 import Text from "../basic/Text";
 import Button from "../basic/Button";
 
-function DeviceCard({ device }) {
+function DeviceCard({ device, deleteDevice }) {
   const { ip, temp, alive, id } = device;
   let { name } = device;
   let opacity = {};
@@ -24,7 +24,7 @@ function DeviceCard({ device }) {
       <Button
         style={styles.delete}
         onPress={() => {
-          console.log(device);
+          deleteDevice(device);
         }}
       >
         <FontAwesome name="trash" size={30} color={"white"} />

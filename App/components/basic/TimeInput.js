@@ -1,5 +1,4 @@
 import { TouchableWithoutFeedback, StyleSheet, View } from "react-native";
-import fonts from "../../config/fonts";
 import colors from "../../config/colors";
 import Text from "./Text";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -14,7 +13,7 @@ function TimeInput({
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const pickedDate = new Date("1970-01-01T" + value);
+  const pickedDate = new Date("2000-01-01T" + value);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 18,
     padding: 5,
-    fontFamily: fonts.default,
     borderColor: colors.light.soft,
   },
   label: {
