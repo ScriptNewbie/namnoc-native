@@ -30,7 +30,7 @@ function TimeInput({
 
   return (
     <View style={[styles.container, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text>{label}</Text>}
       <TouchableWithoutFeedback onPress={showDatePicker}>
         <Text style={styles.input} {...otherProps}>
           {value}
@@ -52,12 +52,8 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    fontSize: fonts.sizeDefault,
     padding: 5,
     borderColor: colors.light.soft,
-  },
-  label: {
-    fontSize: fonts.sizeDefault,
   },
   container: {
     flex: 1,

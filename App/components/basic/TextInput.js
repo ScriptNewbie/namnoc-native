@@ -6,7 +6,7 @@ import Text from "./Text";
 function AppTextInput({ label, style, ...otherProps }) {
   return (
     <View style={[styles.container, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text>{label}</Text>}
       <TextInput style={styles.input} {...otherProps}></TextInput>
     </View>
   );
@@ -17,13 +17,9 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    fontSize: fonts.sizeDefault,
     padding: 5,
     fontFamily: fonts.default,
     borderColor: colors.light.soft,
-  },
-  label: {
-    fontSize: fonts.sizeDefault,
   },
   container: {
     flex: 1,

@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   ip: {
     color: colors.light.apply,
+    fontSize: fonts.sizeSmall,
   },
   leftSide: {
     flex: 1,
