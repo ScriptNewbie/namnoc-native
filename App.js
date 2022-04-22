@@ -1,4 +1,4 @@
-import { Platform, StatusBar } from "react-native";
+import { Platform, StatusBar, LogBox } from "react-native";
 
 const device = {
   name: "Sypialnia",
@@ -8,7 +8,10 @@ const device = {
   alive: 5,
   schedule: {
     monday: {
-      times: [],
+      times: [
+        { end: 800, temp: 20 },
+        { end: 2200, temp: 22 },
+      ],
       lastTemp: 20,
     },
     tuesday: {
@@ -41,6 +44,8 @@ const device = {
 import Screen from "./App/screens/NewDevice";
 
 export default function App() {
+  LogBox.ignoreLogs(["..."]);
+
   return (
     <>
       {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}

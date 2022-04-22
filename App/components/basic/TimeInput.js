@@ -42,10 +42,14 @@ function TimeInput({
   let disabledColor = {};
   if (disabled) disabledColor = styles.disabledColor;
   return (
-    <View style={[styles.container, disabledColor, style]}>
+    <View style={[styles.container, style]}>
       {label && <Text>{label}</Text>}
       <TouchableWithoutFeedback onPress={showDatePicker}>
-        <Text {...otherProps}>{value}</Text>
+        <View style={[styles.inputContainer, disabledColor]}>
+          <Text style={styles.input} {...otherProps}>
+            {value}
+          </Text>
+        </View>
       </TouchableWithoutFeedback>
       {!disabled && (
         <DateTimePickerModal
@@ -62,12 +66,16 @@ function TimeInput({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  input: {
+    textAlign: "center",
+  },
+  inputContainer: {
     borderWidth: 1,
     borderRadius: 5,
-    padding: 5,
     borderColor: colors.light.soft,
-    flex: 1,
-    alignItems: "center",
+    padding: 5,
   },
   disabledColor: { backgroundColor: colors.light.disabled },
 });

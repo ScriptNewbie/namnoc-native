@@ -69,18 +69,6 @@ function Main() {
       temp: "22.0",
       alive: 5,
     },
-    {
-      id: "51:9C:7F:00:BC:30",
-      ip: "192.168.120.2",
-      temp: "22.1",
-      alive: 5,
-    },
-    {
-      id: "36:23:6B:73:0E:75",
-      ip: "192.168.120.4",
-      temp: "21.8",
-      alive: 5,
-    },
   ]);
 
   const deleteDevice = (device) => {
