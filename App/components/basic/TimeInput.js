@@ -9,7 +9,7 @@ function TimeInput({
   style,
   updateTime = () => {},
   value,
-  disabled,
+  disabled = false,
   ...otherProps
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
