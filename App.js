@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, StatusBar } from "react-native";
+import { Platform, StatusBar } from "react-native";
 
 const device = {
   id: "1",
@@ -10,7 +10,7 @@ const device = {
     monday: {
       times: [
         { end: "12:00", temp: "22" },
-        { end: "16:00", temp: "22" },
+        { end: "16:00", temp: "23" },
       ],
       lastTemp: 20,
     },
@@ -44,5 +44,10 @@ const device = {
 import Screen from "./App/screens/Device";
 
 export default function App() {
-  return <Screen device={device} />;
+  return (
+    <>
+      {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+      <Screen device={device} />
+    </>
+  );
 }

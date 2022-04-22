@@ -4,13 +4,12 @@ import Text from "./Text";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import React, { useState } from "react";
 
-import fonts from "../../config/fonts";
-
 function TimeInput({
   label,
   style,
   updateTime = () => {},
   value,
+  disabled,
   ...otherProps
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -28,36 +27,37 @@ function TimeInput({
     hideDatePicker();
   };
 
+  let disabledColor = {};
+  if (disabled) disabledColor = styles.disabledColor;
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, disabledColor, style]}>
       {label && <Text>{label}</Text>}
       <TouchableWithoutFeedback onPress={showDatePicker}>
-        <Text style={styles.input} {...otherProps}>
-          {value}
-        </Text>
+        <Text {...otherProps}>{value}</Text>
       </TouchableWithoutFeedback>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="time"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-        date={pickedDate}
-      />
+      {!disabled && (
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="time"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          date={pickedDate}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  border: {},
-  input: {
+  container: {
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,
     borderColor: colors.light.soft,
-  },
-  container: {
     flex: 1,
+    alignItems: "center",
   },
+  disabledColor: { backgroundColor: colors.light.disabled },
 });
 
 export default TimeInput;

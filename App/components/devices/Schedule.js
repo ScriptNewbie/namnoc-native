@@ -17,7 +17,7 @@ const daysOfWeek = [
 ];
 
 function Schedule({ schedule }) {
-  let previous = <TimeInput value={"00:00"} />;
+  let previous = <TimeInput disabled value={"00:00"} />;
   return (
     <View>
       {daysOfWeek.map((dayOfWeek) => (
@@ -66,6 +66,8 @@ function Schedule({ schedule }) {
               <TextInput
                 label={"Temperatura:"}
                 labelStyle={styles.verySmallTexts}
+                keyboardType="numeric"
+                value={time.temp.toString()}
               ></TextInput>
               <Text style={styles.periodTexts}>Przedział {index + 2}</Text>
             </View>
@@ -73,7 +75,7 @@ function Schedule({ schedule }) {
           <View style={styles.timePeriods}>
             {previous}
             <Text> – </Text>
-            <TimeInput value={"23:59"} />
+            <TimeInput disabled value={"23:59"} />
             <Button
               name={dayOfWeek[0]}
               onPress={(e) => {
@@ -92,10 +94,16 @@ function Schedule({ schedule }) {
               }}
               text={"Usuń"}
             />
-            {(() => {
-              previous = <TimeInput value={"00:00"} />;
-            })()}
           </View>
+          <TextInput
+            label={"Temperatura:"}
+            labelStyle={styles.verySmallTexts}
+            keyboardType="numeric"
+            value={schedule[dayOfWeek[0]].lastTemp.toString()}
+          ></TextInput>
+          {(() => {
+            previous = <TimeInput disabled value={"00:00"} />;
+          })()}
         </View>
       ))}
     </View>
