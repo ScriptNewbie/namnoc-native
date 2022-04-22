@@ -3,6 +3,8 @@ import TimeInput from "../basic/TimeInput";
 import Button from "../basic/Button";
 import Text from "../basic/Text";
 import TextInput from "../basic/TextInput";
+import fonts from "../../config/fonts";
+import colors from "../../config/colors";
 
 const daysOfWeek = [
   ["monday", "Poniedziałek", "poniedziałku"],
@@ -15,59 +17,85 @@ const daysOfWeek = [
 ];
 
 function Schedule({ schedule }) {
+  let previous = <TimeInput value={"00:00"} />;
   return (
     <View>
       {daysOfWeek.map((dayOfWeek) => (
-        <View key={dayOfWeek[0]}>
+        <View style={styles.dayOfWeek} key={dayOfWeek[0]}>
           <Text>{dayOfWeek[1]}</Text>
-          <Text>Kopiuj z:</Text>
+          <Text style={styles.verySmallTexts}>Kopiuj z:</Text>
           <View style={styles.copyFromButtons}>
             {daysOfWeek.map((dayToCopyFrom) => (
               <Button
-                onClick={(e) => {
-                  this.copySchedule(dayOfWeek[0], dayToCopyFrom[0]);
+                key={dayToCopyFrom[0]}
+                onPress={(e) => {
+                  copySchedule(dayOfWeek[0], dayToCopyFrom[0]);
                 }}
                 text={dayToCopyFrom[2]}
+                style={styles.copyFromButton}
+                textStyle={styles.copyFromButtonText}
               />
             ))}
           </View>
-          <Text>Przedział 1</Text>
-          <TimeInput value="00:00" />
+          <Text style={styles.periodTexts}>Przedział 1</Text>
           {schedule[dayOfWeek[0]].times.map((time, index) => (
             <View key={time.end}>
-              <TimeInput
-                value={time.end}
-                change={(e, revert) => {
-                  this.changeTime(e, index, dayOfWeek[0], revert);
-                }}
-              />
-              <Button
-                name={dayOfWeek[0]}
-                onClick={(e) => {
-                  this.Viewide(e, index);
-                }}
-                text={"Podziel"}
-              />
-              <Button
-                name={dayOfWeek[0]}
-                onClick={(e) => {
-                  this.deleteScheduleEntry(e, index);
-                }}
-                text={"Usuń"}
-              />
-              <TextInput label={"Temperatura:"}></TextInput>
-              <Text>Przedział {index + 2}</Text>
-              <TimeInput
-                value={"12:00"}
-                change={(e, revert) => {
-                  this.changeTime(e, index, dayOfWeek[0], revert);
-                }}
-              />
+              <View style={styles.timePeriods}>
+                {previous}
+                <Text> – </Text>
+                {(previous = <TimeInput value={time.end} />)}
+                <Button
+                  name={dayOfWeek[0]}
+                  onPress={(e) => {
+                    this.Viewide(e, index);
+                  }}
+                  text={"Podziel"}
+                  textStyle={styles.divideDeleteText}
+                  style={styles.divideDelete}
+                />
+                <Button
+                  textStyle={styles.divideDeleteText}
+                  style={[styles.divideDelete, styles.delete]}
+                  name={dayOfWeek[0]}
+                  onPress={(e) => {
+                    this.deleteScheduleEntry(e, index);
+                  }}
+                  text={"Usuń"}
+                />
+              </View>
+              <TextInput
+                label={"Temperatura:"}
+                labelStyle={styles.verySmallTexts}
+              ></TextInput>
+              <Text style={styles.periodTexts}>Przedział {index + 2}</Text>
             </View>
           ))}
-          <TimeInput value="00:00" />
-          <Button text={"Podziel"} />
-          <TextInput label={"Temperatura:"}></TextInput>
+          <View style={styles.timePeriods}>
+            {previous}
+            <Text> – </Text>
+            <TimeInput value={"23:59"} />
+            <Button
+              name={dayOfWeek[0]}
+              onPress={(e) => {
+                this.Viewide(e, index);
+              }}
+              text={"Podziel"}
+              textStyle={styles.divideDeleteText}
+              style={styles.divideDelete}
+            />
+            <Button
+              textStyle={styles.divideDeleteText}
+              style={[styles.divideDelete, styles.delete]}
+              name={dayOfWeek[0]}
+              onPress={(e) => {
+                this.deleteScheduleEntry(e, index);
+              }}
+              text={"Usuń"}
+            />
+            {(() => {
+              previous = <TimeInput value={"00:00"} />;
+            })()}
+          </View>
         </View>
       ))}
     </View>
@@ -75,7 +103,29 @@ function Schedule({ schedule }) {
 }
 
 const styles = StyleSheet.create({
-  copyFromButtons: { flexDirection: "row" },
+  copyFromButtons: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  copyFromButton: { margin: 2, backgroundColor: colors.light.secondaryButton },
+  copyFromButtonText: { fontSize: fonts.sizeVerySmall },
+  timePeriods: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  divideDeleteText: { fontSize: fonts.sizeVerySmall },
+  divideDelete: { marginLeft: 5 },
+  delete: { backgroundColor: colors.light.discard },
+  verySmallTexts: { fontSize: fonts.sizeVerySmall },
+  periodTexts: { fontSize: fonts.sizeSmall },
+  dayOfWeek: {
+    borderColor: colors.light.soft,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 5,
+  },
 });
 
 export default Schedule;

@@ -5,6 +5,8 @@ const lightModeColors = {
   primary: "black",
   background: "white",
   white: "white",
+  primaryButton: "grey",
+  secondaryButton: "rgb(20,128,250)",
 };
 
 const colors = {

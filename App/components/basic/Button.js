@@ -25,7 +25,7 @@ function Button({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.light.soft,
+    backgroundColor: colors.light.primaryButton,
     borderRadius: 10,
     justifyContent: "center",
     padding: 10,

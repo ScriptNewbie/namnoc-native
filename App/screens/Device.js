@@ -12,7 +12,6 @@ import Schedule from "../components/devices/Schedule";
 
 function Device({ device }) {
   const { name, temp, schedule } = device;
-  console.log(schedule);
   return (
     <Screen>
       <ScrollView style={styles.container}>
@@ -47,7 +46,6 @@ const styles = StyleSheet.create({
     fontSize: fonts.sizeHeader,
   },
   harmonogram: {
-    marginTop: 10,
     fontSize: fonts.sizeBig,
   },
   container: {

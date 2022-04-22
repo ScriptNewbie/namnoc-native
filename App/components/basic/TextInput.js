@@ -3,10 +3,10 @@ import fonts from "../../config/fonts";
 import colors from "../../config/colors";
 import Text from "./Text";
 
-function AppTextInput({ label, style, ...otherProps }) {
+function AppTextInput({ label, style, labelStyle, ...otherProps }) {
   return (
     <View style={[styles.container, style]}>
-      {label && <Text>{label}</Text>}
+      {label && <Text style={labelStyle}>{label}</Text>}
       <TextInput style={styles.input} {...otherProps}></TextInput>
     </View>
   );

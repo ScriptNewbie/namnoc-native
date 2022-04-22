@@ -8,7 +8,10 @@ const device = {
   alive: 5,
   schedule: {
     monday: {
-      times: [{ end: "22:00", temp: "22" }],
+      times: [
+        { end: "12:00", temp: "22" },
+        { end: "16:00", temp: "22" },
+      ],
       lastTemp: 20,
     },
     tuesday: {

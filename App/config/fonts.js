@@ -6,6 +6,7 @@ const fonts = {
   sizeTitle: 28,
   sizeHeader: 24,
   sizeSmall: 16,
+  sizeVerySmall: 13,
   sizeBig: 20,
 };
 
