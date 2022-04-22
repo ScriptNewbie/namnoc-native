@@ -9,7 +9,7 @@ const device = {
   schedule: {
     monday: {
       times: [
-        { end: "12:00", temp: "22" },
+        { end: 1700, temp: "22" },
         { end: "16:00", temp: "23" },
       ],
       lastTemp: 20,

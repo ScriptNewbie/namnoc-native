@@ -13,9 +13,19 @@ function TimeInput({
   ...otherProps
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const valueIsInt = typeof value === "number";
+
+  if (valueIsInt) {
+    value = value.toString();
+    const valueLength = value.length;
+    value =
+      value.substring(0, valueLength - 2) +
+      ":" +
+      value.substring(valueLength - 2);
+    if (valueLength === 3) value = "0" + value;
+  }
 
   const pickedDate = new Date("2000-01-01T" + value);
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -23,7 +33,10 @@ function TimeInput({
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
-    updateTime(date.toTimeString().split(" ")[0].substring(0, 5));
+    let retVal = date.toTimeString().split(" ")[0].substring(0, 5);
+    if (valueIsInt) retVal = parseInt(retVal.replace(":", ""));
+    console.log(retVal);
+    updateTime(retVal);
     hideDatePicker();
   };
 
