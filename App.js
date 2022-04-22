@@ -1,17 +1,14 @@
 import { Platform, StatusBar } from "react-native";
 
 const device = {
-  id: "1",
   name: "Sypialnia",
+  id: "2E:2G:8J:CD:FF",
   ip: "192.168.120.1",
   temp: "22.0",
   alive: 5,
   schedule: {
     monday: {
-      times: [
-        { end: 1700, temp: "22" },
-        { end: "16:00", temp: "23" },
-      ],
+      times: [],
       lastTemp: 20,
     },
     tuesday: {
@@ -41,7 +38,7 @@ const device = {
   },
 };
 
-import Screen from "./App/screens/Device";
+import Screen from "./App/screens/NewDevice";
 
 export default function App() {
   return (

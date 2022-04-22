@@ -35,7 +35,6 @@ function TimeInput({
   const handleConfirm = (date) => {
     let retVal = date.toTimeString().split(" ")[0].substring(0, 5);
     if (valueIsInt) retVal = parseInt(retVal.replace(":", ""));
-    console.log(retVal);
     updateTime(retVal);
     hideDatePicker();
   };

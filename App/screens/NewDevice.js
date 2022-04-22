@@ -9,18 +9,55 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 
-function Device({ device }) {
-  const { name, schedule } = device;
+function NewDevice({ device }) {
+  const [newParams, setNewParams] = useState({
+    name: "",
+    schedule: {
+      monday: {
+        times: [],
+        lastTemp: 20,
+      },
+      tuesday: {
+        times: [],
+        lastTemp: 20,
+      },
+      wednesday: {
+        times: [],
+        lastTemp: 20,
+      },
+      thursday: {
+        times: [],
+        lastTemp: 20,
+      },
+      friday: {
+        times: [],
+        lastTemp: 20,
+      },
+      saturday: {
+        times: [],
+        lastTemp: 20,
+      },
+      sunday: {
+        times: [],
+        lastTemp: 20,
+      },
+    },
+  });
+  const { id } = device;
+  const { schedule } = newParams;
+
   return (
     <Screen>
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>{name}</Text>
-        <Button text="Usuń z systemu" style={styles.delete} />
-        <Text style={styles.header}>Zmiana ustawień</Text>
+        <View>
+          <Text style={styles.title}>Nowe urządzenie</Text>
+          <Text style={styles.id}>{id}</Text>
+        </View>
+        <Text style={styles.header}>Konfiguracja urządzenia</Text>
         <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>
         <Schedule schedule={schedule}></Schedule>
-        <Button text="Zapisz ustawienia" style={styles.submit} />
+        <Button text="Dodaj do systemu" style={styles.submit} />
       </ScrollView>
     </Screen>
   );
@@ -29,7 +66,6 @@ function Device({ device }) {
 const styles = StyleSheet.create({
   title: {
     fontSize: fonts.sizeTitle,
-    textAlign: "justify",
   },
   header: {
     marginTop: 10,
@@ -47,11 +83,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  delete: {
-    backgroundColor: colors.light.discard,
-    marginTop: 10,
-    marginBottom: 10,
-  },
+  id: { fontSize: fonts.sizeVerySmall },
 });
 
-export default Device;
+export default NewDevice;
