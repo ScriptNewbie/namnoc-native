@@ -1,5 +1,6 @@
 import { StyleSheet, ScrollView, View } from "react-native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import Screen from "../components/basic/Screen";
 import TextInput from "../components/basic/TextInput";
@@ -9,7 +10,8 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 
-function NewDevice({ device }) {
+function NewDevice({ device, route }) {
+  const navigation = useNavigation();
   const [newParams, setNewParams] = useState({
     name: "",
     schedule: {
@@ -43,13 +45,17 @@ function NewDevice({ device }) {
       },
     },
   });
-  const { id } = device;
+  const { id } = route.params;
   const { schedule } = newParams;
 
   const updateSchedule = (schedule) => {
     const newParamsCopy = { ...newParams };
     newParamsCopy.schedule = schedule;
     setNewParams(newParamsCopy);
+  };
+
+  const saveSettings = () => {
+    navigation.goBack();
   };
 
   return (
@@ -66,7 +72,11 @@ function NewDevice({ device }) {
           schedule={schedule}
           updateSchedule={updateSchedule}
         ></Schedule>
-        <Button text="Dodaj do systemu" style={styles.submit} />
+        <Button
+          text="Dodaj do systemu"
+          onPress={saveSettings}
+          style={styles.submit}
+        />
       </ScrollView>
     </Screen>
   );

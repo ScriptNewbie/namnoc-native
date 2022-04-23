@@ -1,7 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
@@ -9,6 +10,8 @@ import Text from "../basic/Text";
 import Button from "../basic/Button";
 
 function DeviceCard({ device, deleteDevice }) {
+  const navigation = useNavigation();
+
   const { ip, temp, alive, id } = device;
   let { name } = device;
   let opacity = {};
@@ -18,9 +21,11 @@ function DeviceCard({ device, deleteDevice }) {
     opacity = StyleSheet.create({ opacity: styles.notAlive.opacity });
     notAliveIpColor = StyleSheet.create({ color: styles.notAlive.color });
   }
-  //Delete option available if device paired
+  //Delete option available if device paired, different navigation paths
   let rightAction = <View />;
+  let navigationPath = "NewDevice";
   if (name) {
+    navigationPath = "Device";
     rightAction = (
       <Button
         style={styles.delete}
@@ -35,24 +40,30 @@ function DeviceCard({ device, deleteDevice }) {
   return (
     <GestureHandlerRootView>
       <Swipeable renderRightActions={() => rightAction}>
-        <View style={[styles.deviceCard, opacity]}>
-          <View style={styles.leftSide}>
-            <Text numberOfLines={1} style={styles.name}>
-              {name}
-            </Text>
-            <Text style={[styles.ip, notAliveIpColor]}>
-              {alive ? ip : "Nieaktywne"}
-            </Text>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate(navigationPath, device);
+          }}
+        >
+          <View style={[styles.deviceCard, opacity]}>
+            <View style={styles.leftSide}>
+              <Text numberOfLines={1} style={styles.name}>
+                {name}
+              </Text>
+              <Text style={[styles.ip, notAliveIpColor]}>
+                {alive ? ip : "Nieaktywne"}
+              </Text>
+            </View>
+            <View style={styles.rightSide}>
+              <FontAwesome5
+                name="thermometer-half"
+                style={styles.tempIcon}
+                size={styles.temp.fontSize}
+              />
+              <Text style={styles.temp}>{temp}</Text>
+            </View>
           </View>
-          <View style={styles.rightSide}>
-            <FontAwesome5
-              name="thermometer-half"
-              style={styles.tempIcon}
-              size={styles.temp.fontSize}
-            />
-            <Text style={styles.temp}>{temp}</Text>
-          </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Swipeable>
     </GestureHandlerRootView>
   );

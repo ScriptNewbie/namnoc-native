@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import Furnace from "./Furnace";
 import Button from "../basic/Button";
@@ -8,12 +9,20 @@ import SystemTime from "./SystemTime";
 const furnace = { on: 0, ip: "", alive: 1, timeStamp: 0 };
 
 function TopBar() {
+  const navigation = useNavigation();
   return (
     <View style={styles.topBar}>
       <Furnace furnace={furnace} />
       <SystemTime date={{ time: "10:00" }} />
       <Button>
-        <Feather name="settings" size={32} color="white" />
+        <Feather
+          name="settings"
+          onPress={() => {
+            navigation.navigate("Settings");
+          }}
+          size={32}
+          color="white"
+        />
       </Button>
     </View>
   );

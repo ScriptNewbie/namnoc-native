@@ -1,53 +1,29 @@
 import { Platform, StatusBar } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-const device = {
-  name: "Sypialnia",
-  id: "2E:2G:8J:CD:FF",
-  ip: "192.168.120.1",
-  temp: "22.0",
-  alive: 5,
-  schedule: {
-    monday: {
-      times: [
-        { end: 800, temp: 20 },
-        { end: 2200, temp: 22 },
-      ],
-      lastTemp: 20,
-    },
-    tuesday: {
-      times: [],
-      lastTemp: 20,
-    },
-    wednesday: {
-      times: [],
-      lastTemp: 20,
-    },
-    thursday: {
-      times: [],
-      lastTemp: 20,
-    },
-    friday: {
-      times: [],
-      lastTemp: 20,
-    },
-    saturday: {
-      times: [],
-      lastTemp: 20,
-    },
-    sunday: {
-      times: [],
-      lastTemp: 20,
-    },
-  },
-};
+import Main from "./App/screens/Main";
+import Settings from "./App/screens/Settings";
+import Device from "./App/screens/Device";
+import NewDevice from "./App/screens/NewDevice";
 
-import Screen from "./App/screens/Main";
+const Stack = createStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Main" component={Main} />
+    <Stack.Screen name="Settings" component={Settings} />
+    <Stack.Screen name="Device" component={Device} />
+    <Stack.Screen name="NewDevice" component={NewDevice} />
+  </Stack.Navigator>
+);
 
 export default function App() {
   return (
     <>
       {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
-      <Screen device={device} />
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
     </>
   );
 }

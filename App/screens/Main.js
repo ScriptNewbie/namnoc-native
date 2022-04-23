@@ -52,6 +52,36 @@ function Main() {
       ip: "192.168.120.2",
       temp: "22.1",
       alive: 5,
+      schedule: {
+        monday: {
+          times: [],
+          lastTemp: 20,
+        },
+        tuesday: {
+          times: [],
+          lastTemp: 20,
+        },
+        wednesday: {
+          times: [],
+          lastTemp: 20,
+        },
+        thursday: {
+          times: [],
+          lastTemp: 20,
+        },
+        friday: {
+          times: [],
+          lastTemp: 20,
+        },
+        saturday: {
+          times: [],
+          lastTemp: 20,
+        },
+        sunday: {
+          times: [],
+          lastTemp: 20,
+        },
+      },
     },
     {
       id: "3",
@@ -59,6 +89,36 @@ function Main() {
       ip: "192.168.120.4",
       temp: "21.8",
       alive: 5,
+      schedule: {
+        monday: {
+          times: [],
+          lastTemp: 20,
+        },
+        tuesday: {
+          times: [],
+          lastTemp: 20,
+        },
+        wednesday: {
+          times: [],
+          lastTemp: 20,
+        },
+        thursday: {
+          times: [],
+          lastTemp: 20,
+        },
+        friday: {
+          times: [],
+          lastTemp: 20,
+        },
+        saturday: {
+          times: [],
+          lastTemp: 20,
+        },
+        sunday: {
+          times: [],
+          lastTemp: 20,
+        },
+      },
     },
   ]);
 
