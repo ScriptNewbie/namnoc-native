@@ -2,7 +2,7 @@ import { StyleSheet, FlatList, StatusBar } from "react-native";
 import React, { useState } from "react";
 
 import DevicesList from "../components/devices/DevicesList";
-import Screen from "../components/basic/Screen";
+import Screen from "../components/basic/FullScreen";
 import Text from "../components/basic/Text";
 import TopBar from "../components/topBar";
 import fonts from "../config/fonts";
