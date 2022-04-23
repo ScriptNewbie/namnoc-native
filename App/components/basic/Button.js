@@ -1,6 +1,5 @@
 import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 import colors from "../../config/colors";
-import fonts from "../../config/fonts";
 
 import Text from "./Text";
 

@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -40,7 +40,7 @@ function DeviceCard({ device, deleteDevice }) {
   return (
     <GestureHandlerRootView>
       <Swipeable renderRightActions={() => rightAction}>
-        <TouchableWithoutFeedback
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate(navigationPath, device);
           }}
@@ -63,7 +63,7 @@ function DeviceCard({ device, deleteDevice }) {
               <Text style={styles.temp}>{temp}</Text>
             </View>
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </Swipeable>
     </GestureHandlerRootView>
   );
