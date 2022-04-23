@@ -41,7 +41,7 @@ const device = {
   },
 };
 
-import Screen from "./App/screens/NewDevice";
+import Screen from "./App/screens/Main";
 
 export default function App() {
   return (
