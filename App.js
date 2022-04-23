@@ -1,4 +1,4 @@
-import { Platform, StatusBar, LogBox } from "react-native";
+import { Platform, StatusBar } from "react-native";
 
 const device = {
   name: "Sypialnia",
@@ -44,8 +44,6 @@ const device = {
 import Screen from "./App/screens/NewDevice";
 
 export default function App() {
-  LogBox.ignoreLogs(["..."]);
-
   return (
     <>
       {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}

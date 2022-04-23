@@ -9,8 +9,16 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 
-function Device({ device }) {
+function Device(props) {
+  const [device, setDevice] = useState(props.device);
   const { name, schedule } = device;
+
+  const updateSchedule = (schedule) => {
+    const deviceCopy = { ...device };
+    deviceCopy.schedule = schedule;
+    setDevice(deviceCopy);
+  };
+
   return (
     <Screen>
       <ScrollView style={styles.container}>
@@ -19,7 +27,10 @@ function Device({ device }) {
         <Text style={styles.header}>Zmiana ustawień</Text>
         <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>
-        <Schedule schedule={schedule}></Schedule>
+        <Schedule
+          schedule={schedule}
+          updateSchedule={updateSchedule}
+        ></Schedule>
         <Button text="Zapisz ustawienia" style={styles.submit} />
       </ScrollView>
     </Screen>

@@ -46,6 +46,12 @@ function NewDevice({ device }) {
   const { id } = device;
   const { schedule } = newParams;
 
+  const updateSchedule = (schedule) => {
+    const newParamsCopy = { ...newParams };
+    newParamsCopy.schedule = schedule;
+    setNewParams(newParamsCopy);
+  };
+
   return (
     <Screen>
       <ScrollView style={styles.container}>
@@ -56,7 +62,10 @@ function NewDevice({ device }) {
         <Text style={styles.header}>Konfiguracja urządzenia</Text>
         <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>
-        <Schedule schedule={schedule}></Schedule>
+        <Schedule
+          schedule={schedule}
+          updateSchedule={updateSchedule}
+        ></Schedule>
         <Button text="Dodaj do systemu" style={styles.submit} />
       </ScrollView>
     </Screen>
