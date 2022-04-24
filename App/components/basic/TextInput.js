@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     fontFamily: fonts.default,
+    fontSize: fonts.sizeDefault,
     borderColor: colors.light.soft,
   },
   container: {

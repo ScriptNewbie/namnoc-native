@@ -1,8 +1,14 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  ActivityIndicator,
+} from "react-native";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
 
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
@@ -11,8 +17,15 @@ import Button from "../basic/Button";
 
 function DeviceCard({ device, deleteDevice }) {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(styles.loadingNotVisible);
+  useEffect(() => {
+    if (loading.opacity) {
+      navigation.navigate(navigationPath, device);
+      setLoading(styles.loadingNotVisible);
+    }
+  }, [loading]);
 
-  const { ip, temp, alive, id } = device;
+  const { ip, temp, alive, id, opened } = device;
   let { name } = device;
   let opacity = {};
   let notAliveIpColor = {};
@@ -40,9 +53,9 @@ function DeviceCard({ device, deleteDevice }) {
   return (
     <GestureHandlerRootView>
       <Swipeable renderRightActions={() => rightAction}>
-        <TouchableOpacity
+        <TouchableWithoutFeedback
           onPress={() => {
-            navigation.navigate(navigationPath, device);
+            setLoading(styles.loadingVisible);
           }}
         >
           <View style={[styles.deviceCard, opacity]}>
@@ -55,7 +68,9 @@ function DeviceCard({ device, deleteDevice }) {
               </Text>
             </View>
             <View style={styles.rightSide}>
+              <ActivityIndicator color={colors.light.primary} style={loading} />
               <FontAwesome5
+                color={opened ? colors.light.discard : colors.light.primary}
                 name="thermometer-half"
                 style={styles.tempIcon}
                 size={styles.temp.fontSize}
@@ -63,7 +78,7 @@ function DeviceCard({ device, deleteDevice }) {
               <Text style={styles.temp}>{temp}</Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </Swipeable>
     </GestureHandlerRootView>
   );
@@ -110,6 +125,8 @@ const styles = StyleSheet.create({
     padding: 20,
     marginLeft: 10,
   },
+  loadingVisible: { opacity: 1 },
+  loadingNotVisible: { opacity: 0 },
 });
 
 export default DeviceCard;

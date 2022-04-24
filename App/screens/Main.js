@@ -15,6 +15,7 @@ function Main() {
       ip: "192.168.120.1",
       temp: "22.0",
       alive: 5,
+      opened: 1,
       schedule: {
         monday: {
           times: [],
@@ -52,6 +53,7 @@ function Main() {
       ip: "192.168.120.2",
       temp: "22.1",
       alive: 5,
+      opened: 0,
       schedule: {
         monday: {
           times: [],
@@ -89,6 +91,7 @@ function Main() {
       ip: "192.168.120.4",
       temp: "21.8",
       alive: 5,
+      opened: 0,
       schedule: {
         monday: {
           times: [],
