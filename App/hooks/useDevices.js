@@ -1,11 +1,13 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const fetchPosts = async () => {
-  const { data } = await axios.get(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+const fetchDevices = async () => {
+  const { data } = await axios.get("http://zettawhit.com:8080/devices");
   return data;
 };
 
-const usePosts = () => useQuery("posts", fetchPosts);
+const useDevices = () =>
+  useQuery("devices", fetchDevices, {
+    refetchInterval: 1000,
+  });
+export default useDevices;

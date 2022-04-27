@@ -1,6 +1,8 @@
 import { StyleSheet, ScrollView, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useQueryClient } from "react-query";
+import axios from "axios";
 
 import Screen from "../components/basic/Screen";
 import TextInput from "../components/basic/TextInput";
@@ -10,51 +12,62 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 
-function NewDevice({ device, route }) {
+function NewDevice({ route }) {
   const navigation = useNavigation();
-  const [newParams, setNewParams] = useState({
-    name: "",
-    schedule: {
-      monday: {
-        times: [],
-        lastTemp: 20,
-      },
-      tuesday: {
-        times: [],
-        lastTemp: 20,
-      },
-      wednesday: {
-        times: [],
-        lastTemp: 20,
-      },
-      thursday: {
-        times: [],
-        lastTemp: 20,
-      },
-      friday: {
-        times: [],
-        lastTemp: 20,
-      },
-      saturday: {
-        times: [],
-        lastTemp: 20,
-      },
-      sunday: {
-        times: [],
-        lastTemp: 20,
-      },
+  const queryClient = useQueryClient();
+  const [schedule, setSchedule] = useState({
+    monday: {
+      times: [],
+      lastTemp: 20,
+    },
+    tuesday: {
+      times: [],
+      lastTemp: 20,
+    },
+    wednesday: {
+      times: [],
+      lastTemp: 20,
+    },
+    thursday: {
+      times: [],
+      lastTemp: 20,
+    },
+    friday: {
+      times: [],
+      lastTemp: 20,
+    },
+    saturday: {
+      times: [],
+      lastTemp: 20,
+    },
+    sunday: {
+      times: [],
+      lastTemp: 20,
     },
   });
+
+  const [name, setName] = useState("");
+
+  console.log(schedule);
+
   const { id } = route.params;
-  const { schedule } = newParams;
 
   const updateSchedule = (schedule) => {
-    const newParamsCopy = { ...newParams };
-    newParamsCopy.schedule = schedule;
-    setNewParams(newParamsCopy);
+    setSchedule({ ...schedule });
   };
 
-  const saveSettings = () => {
+  const saveSettings = async () => {
+    const device = { name, schedule, ...route.params };
+    console.log(device);
+    try {
+      const { data } = await axios.post(
+        "http://zettawhit.com:8080/devices",
+        device
+      );
+      queryClient.invalidateQueries();
+    } catch (e) {
+      console.log(e);
+    }
     navigation.goBack();
   };
 
@@ -66,7 +79,10 @@ function NewDevice({ device, route }) {
           <Text style={styles.id}>{id}</Text>
         </View>
         <Text style={styles.header}>Konfiguracja urządzenia</Text>
-        <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
+        <TextInput
+          label={"Nazwa pomieszczenia:"}
+          onChangeText={(value) => setName(value)}
+        ></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>
         <Schedule
           schedule={schedule}

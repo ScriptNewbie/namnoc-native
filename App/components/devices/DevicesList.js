@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import DeviceCard from "./DeviceCard";
 
-function DeviceList({ devices, deleteDevice }) {
+function DeviceList({ devices }) {
   return (
     <FlatList
       ItemSeparatorComponent={() => {
@@ -9,9 +9,7 @@ function DeviceList({ devices, deleteDevice }) {
       }}
       data={devices}
       keyExtractor={(device) => device.id.toString()}
-      renderItem={({ item }) => (
-        <DeviceCard deleteDevice={deleteDevice} device={item} />
-      )}
+      renderItem={({ item }) => <DeviceCard device={item} />}
     />
   );
 }

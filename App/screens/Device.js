@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useQueryClient } from "react-query";
 
 import Screen from "../components/basic/Screen";
 import TextInput from "../components/basic/TextInput";
@@ -9,9 +10,11 @@ import Button from "../components/basic/Button";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
+import deleteDevice from "../tools/deleteDevice";
 
 function Device({ route }) {
   const [device, setDevice] = useState(route.params);
+  const queryClient = useQueryClient();
   const navigation = useNavigation();
   const { name, schedule } = device;
 
@@ -29,7 +32,14 @@ function Device({ route }) {
     <Screen>
       <ScrollView style={styles.container}>
         <Text style={styles.title}>{name}</Text>
-        <Button text="Usuń z systemu" style={styles.delete} />
+        <Button
+          text="Usuń z systemu"
+          onPress={() => {
+            deleteDevice(device, queryClient);
+            navigation.goBack();
+          }}
+          style={styles.delete}
+        />
         <Text style={styles.header}>Zmiana ustawień</Text>
         <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>

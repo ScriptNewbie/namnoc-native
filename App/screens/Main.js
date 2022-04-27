@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, StatusBar } from "react-native";
+import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
 
 import DevicesList from "../components/devices/DevicesList";
@@ -6,151 +6,32 @@ import Screen from "../components/basic/FullScreen";
 import Text from "../components/basic/Text";
 import TopBar from "../components/topBar";
 import fonts from "../config/fonts";
+import useNewDevices from "../hooks/useNewDevices";
+import useDevices from "../hooks/useDevices";
 
 function Main() {
-  const [devices, setDevices] = useState([
-    {
-      id: "1",
-      name: "Sypialnia",
-      ip: "192.168.120.1",
-      temp: "22.0",
-      alive: 5,
-      opened: 1,
-      schedule: {
-        monday: {
-          times: [],
-          lastTemp: 20,
-        },
-        tuesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        wednesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        thursday: {
-          times: [],
-          lastTemp: 20,
-        },
-        friday: {
-          times: [],
-          lastTemp: 20,
-        },
-        saturday: {
-          times: [],
-          lastTemp: 20,
-        },
-        sunday: {
-          times: [],
-          lastTemp: 20,
-        },
-      },
-    },
-    {
-      id: "2",
-      name: "Kuchnia",
-      ip: "192.168.120.2",
-      temp: "22.1",
-      alive: 5,
-      opened: 0,
-      schedule: {
-        monday: {
-          times: [],
-          lastTemp: 20,
-        },
-        tuesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        wednesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        thursday: {
-          times: [],
-          lastTemp: 20,
-        },
-        friday: {
-          times: [],
-          lastTemp: 20,
-        },
-        saturday: {
-          times: [],
-          lastTemp: 20,
-        },
-        sunday: {
-          times: [],
-          lastTemp: 20,
-        },
-      },
-    },
-    {
-      id: "3",
-      name: "Gościnny",
-      ip: "192.168.120.4",
-      temp: "21.8",
-      alive: 5,
-      opened: 0,
-      schedule: {
-        monday: {
-          times: [],
-          lastTemp: 20,
-        },
-        tuesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        wednesday: {
-          times: [],
-          lastTemp: 20,
-        },
-        thursday: {
-          times: [],
-          lastTemp: 20,
-        },
-        friday: {
-          times: [],
-          lastTemp: 20,
-        },
-        saturday: {
-          times: [],
-          lastTemp: 20,
-        },
-        sunday: {
-          times: [],
-          lastTemp: 20,
-        },
-      },
-    },
-  ]);
-
-  const [newDevices, setNewDevices] = useState([
-    {
-      id: "E3:98:71:63:7A:71",
-      ip: "192.168.120.1",
-      temp: "22.0",
-      alive: 5,
-    },
-  ]);
-
-  const deleteDevice = (device) => {
-    const devicesCopy = [...devices];
-    const current = devicesCopy.find((c) => c.id === device.id);
-    devicesCopy.splice(devicesCopy.indexOf(current), 1);
-    setDevices(devicesCopy);
-  };
+  const {
+    data: newDevices,
+    isLoading: newDevicesLoading,
+    isSuccess: newDevicesSuccess,
+  } = useNewDevices();
+  const {
+    data: devices,
+    isLoading: devicesLoading,
+    isSuccess: devicesSuccess,
+  } = useDevices();
 
   const items = [
     { id: "1", content: <TopBar /> },
     { id: "10", content: <Text style={styles.texts}>Pokoje:</Text> },
     {
       id: "20",
-      content: (
-        <DevicesList
-          deleteDevice={deleteDevice}
-          devices={devices}
-        ></DevicesList>
+      content: devicesLoading ? (
+        <Text>Ładowanie urządzeń...</Text>
+      ) : devices && devices.length ? (
+        <DevicesList devices={devices}></DevicesList>
+      ) : (
+        <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
       ),
     },
     {
@@ -161,7 +42,13 @@ function Main() {
     },
     {
       id: "40",
-      content: <DevicesList devices={newDevices}></DevicesList>,
+      content: devicesLoading ? (
+        <Text>Ładowanie urządzeń...</Text>
+      ) : newDevices && newDevices.length ? (
+        <DevicesList devices={newDevices}></DevicesList>
+      ) : (
+        <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
+      ),
     },
   ];
   return (
