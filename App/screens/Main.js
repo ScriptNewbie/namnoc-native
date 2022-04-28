@@ -28,10 +28,14 @@ function Main() {
       id: "20",
       content: devicesLoading ? (
         <Text>Ładowanie urządzeń...</Text>
-      ) : devices && devices.length ? (
-        <DevicesList devices={devices}></DevicesList>
+      ) : devicesSuccess ? (
+        devices && devices.length ? (
+          <DevicesList devices={devices}></DevicesList>
+        ) : (
+          <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
+        )
       ) : (
-        <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
+        <Text>Błąd podczas ładowania urządzeń!</Text>
       ),
     },
     {
@@ -42,12 +46,16 @@ function Main() {
     },
     {
       id: "40",
-      content: devicesLoading ? (
+      content: newDevicesLoading ? (
         <Text>Ładowanie urządzeń...</Text>
-      ) : newDevices && newDevices.length ? (
-        <DevicesList devices={newDevices}></DevicesList>
+      ) : newDevicesSuccess ? (
+        newDevices && newDevices.length ? (
+          <DevicesList devices={newDevices}></DevicesList>
+        ) : (
+          <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
+        )
       ) : (
-        <Text>Żadne urządzenie nie zostało skonfigurowane w systemie!</Text>
+        <Text>Błąd podczas ładowania urządzeń!</Text>
       ),
     },
   ];
