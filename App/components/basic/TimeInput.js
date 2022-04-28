@@ -28,30 +28,31 @@ function TimeInput({
 
   if (valueIsInt) {
     value = value.toString();
+    if (value.length === 1) value = "000" + value;
     const valueLength = value.length;
     value =
       value.substring(0, valueLength - 2) +
       ":" +
       value.substring(valueLength - 2);
+    if (valueLength === 2) value = "00" + value;
     if (valueLength === 3) value = "0" + value;
   }
 
   const pickedDate = new Date("2000-01-01T" + value);
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
     if (Platform.OS === "ios") setTempValue(pickedDate);
   };
-  const handleChange = (input) => {
+  const handleChange = (e, date) => {
     setDatePickerVisibility(false);
-    if (input.type === "set") {
-      const date = new Date(input.nativeEvent.timestamp);
+    if (e.type === "set") {
       let retVal = date.toTimeString().split(" ")[0].substring(0, 5);
       if (valueIsInt) retVal = parseInt(retVal.replace(":", ""));
       updateTime(retVal);
     }
   };
-  const handleTempChange = (input) => {
-    const date = new Date(input.nativeEvent.timestamp);
+  const handleTempChange = (e, date) => {
     setTempValue(date);
   };
 
@@ -103,9 +104,8 @@ function TimeInput({
                     onPress={() => {
                       const input = {
                         type: "set",
-                        nativeEvent: { timestamp: tempValue },
                       };
-                      handleChange(input);
+                      handleChange(input, tempValue);
                     }}
                   />
                 </View>
