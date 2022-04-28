@@ -1,10 +1,8 @@
-import axios from "axios";
+import http from "../services/httpServiecs";
 
 const deleteDevice = async (device, queryClient) => {
   try {
-    const { data } = await axios.delete("http://zettawhit.com:8080/devices", {
-      data: device,
-    });
+    const response = await http.delete("/devices", device);
     queryClient.invalidateQueries();
   } catch (e) {
     console.log(e);

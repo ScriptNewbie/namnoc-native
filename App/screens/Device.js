@@ -14,6 +14,7 @@ import deleteDevice from "../tools/deleteDevice";
 
 function Device({ route }) {
   const [device, setDevice] = useState(route.params);
+  const [oldName] = useState({ ...device }.name);
   const queryClient = useQueryClient();
   const navigation = useNavigation();
   const { name, schedule } = device;
@@ -24,6 +25,12 @@ function Device({ route }) {
     setDevice(deviceCopy);
   };
 
+  changeName = (value) => {
+    const deviceCopy = { ...device };
+    deviceCopy.name = value;
+    setDevice(deviceCopy);
+  };
+
   const saveSettings = () => {
     navigation.goBack();
   };
@@ -31,7 +38,7 @@ function Device({ route }) {
   return (
     <Screen>
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.title}>{oldName}</Text>
         <Button
           text="Usuń z systemu"
           onPress={() => {
@@ -41,7 +48,11 @@ function Device({ route }) {
           style={styles.delete}
         />
         <Text style={styles.header}>Zmiana ustawień</Text>
-        <TextInput label={"Nazwa pomieszczenia:"}></TextInput>
+        <TextInput
+          label={"Nazwa pomieszczenia:"}
+          onChangeText={changeName}
+          value={name}
+        ></TextInput>
         <Text style={styles.harmonogram}>Harmonogram:</Text>
         <Schedule
           schedule={schedule}

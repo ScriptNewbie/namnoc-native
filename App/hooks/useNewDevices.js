@@ -1,9 +1,8 @@
 import { useQuery } from "react-query";
-import axios from "axios";
+import http from "../services/httpServiecs";
 
 const fetchNewDevices = async () => {
-  const { data } = await axios.get("http://zettawhit.com:8080/newDevices");
-  return data;
+  return await http.get("/newDevices");
 };
 
 const useNewDevices = () =>

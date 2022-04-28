@@ -2,7 +2,6 @@ import { StyleSheet, ScrollView, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryClient } from "react-query";
-import axios from "axios";
 
 import Screen from "../components/basic/Screen";
 import TextInput from "../components/basic/TextInput";
@@ -11,6 +10,7 @@ import Button from "../components/basic/Button";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
+import http from "../services/httpServiecs";
 
 function NewDevice({ route }) {
   const navigation = useNavigation();
@@ -48,8 +48,6 @@ function NewDevice({ route }) {
 
   const [name, setName] = useState("");
 
-  console.log(schedule);
-
   const { id } = route.params;
 
   const updateSchedule = (schedule) => {
@@ -58,12 +56,8 @@ function NewDevice({ route }) {
 
   const saveSettings = async () => {
     const device = { name, schedule, ...route.params };
-    console.log(device);
     try {
-      const { data } = await axios.post(
-        "http://zettawhit.com:8080/devices",
-        device
-      );
+      await http.post("/devices", device);
       queryClient.invalidateQueries();
     } catch (e) {
       console.log(e);
