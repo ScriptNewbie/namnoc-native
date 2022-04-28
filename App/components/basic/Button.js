@@ -3,15 +3,7 @@ import colors from "../../config/colors";
 
 import Text from "./Text";
 
-function Button({
-  children,
-  style,
-  text,
-  textStyle,
-  onPress = () => {
-    console.log();
-  },
-}) {
+function Button({ children, style, text, textStyle, onPress = () => {} }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.button, style]}>

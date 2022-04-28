@@ -2,7 +2,10 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   View,
+  Platform,
   Modal,
+  Button,
+  SafeAreaView,
 } from "react-native";
 import colors from "../../config/colors";
 import Text from "./Text";
@@ -19,6 +22,8 @@ function TimeInput({
   ...otherProps
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [tempValue, setTempValue] = useState();
+
   const valueIsInt = typeof value === "number";
 
   if (valueIsInt) {
@@ -34,15 +39,20 @@ function TimeInput({
   const pickedDate = new Date("2000-01-01T" + value);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
+    if (Platform.OS === "ios") setTempValue(pickedDate);
   };
-  const hideDatePicker = () => {
+  const handleChange = (input) => {
     setDatePickerVisibility(false);
+    if (input.type === "set") {
+      const date = new Date(input.nativeEvent.timestamp);
+      let retVal = date.toTimeString().split(" ")[0].substring(0, 5);
+      if (valueIsInt) retVal = parseInt(retVal.replace(":", ""));
+      updateTime(retVal);
+    }
   };
-  const handleConfirm = (date) => {
-    let retVal = date.toTimeString().split(" ")[0].substring(0, 5);
-    if (valueIsInt) retVal = parseInt(retVal.replace(":", ""));
-    updateTime(retVal);
-    hideDatePicker();
+  const handleTempChange = (input) => {
+    const date = new Date(input.nativeEvent.timestamp);
+    setTempValue(date);
   };
 
   let disabledColor = {};
@@ -57,9 +67,51 @@ function TimeInput({
           </Text>
         </View>
       </TouchableWithoutFeedback>
-      {!disabled && (
-        <Modal visible={isDatePickerVisible} animationType={"slide"}></Modal>
-      )}
+      {!disabled &&
+        (Platform.OS === "android" ? (
+          isDatePickerVisible && (
+            <DateTimePicker
+              onChange={handleChange}
+              mode="time"
+              value={pickedDate}
+            ></DateTimePicker>
+          )
+        ) : (
+          <Modal
+            transparent={true}
+            visible={isDatePickerVisible}
+            animationType="slide"
+          >
+            <SafeAreaView style={styles.modal}>
+              <View style={styles.modalContent}>
+                <DateTimePicker
+                  onChange={handleTempChange}
+                  mode="time"
+                  value={tempValue}
+                  display="spinner"
+                ></DateTimePicker>
+                <View style={styles.buttonGroup}>
+                  <Button
+                    title="Zamknij"
+                    onPress={() => {
+                      setDatePickerVisibility(false);
+                    }}
+                  />
+                  <Button
+                    title="Zatwierdź"
+                    onPress={() => {
+                      const input = {
+                        type: "set",
+                        nativeEvent: { timestamp: tempValue },
+                      };
+                      handleChange(input);
+                    }}
+                  />
+                </View>
+              </View>
+            </SafeAreaView>
+          </Modal>
+        ))}
     </View>
   );
 }
@@ -78,6 +130,30 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   disabledColor: { backgroundColor: colors.light.disabled },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "center",
+    borderTopWidth: 1,
+    borderColor: colors.light.soft,
+    justifyContent: "space-evenly",
+    padding: 10,
+  },
+  modal: {
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+  },
+  modalContent: {
+    backgroundColor: colors.light.background,
+    marginBottom: 0,
+    alignSelf: "flex-end",
+    flex: 1,
+    borderRadius: 30,
+    marginLeft: 30,
+    marginRight: 30,
+    borderWidth: 1,
+    borderColor: colors.light.soft,
+  },
 });
 
 export default TimeInput;
