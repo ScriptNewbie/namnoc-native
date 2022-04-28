@@ -2,7 +2,8 @@ import { useQuery } from "react-query";
 import http from "../services/httpServiecs";
 
 const fetchNewDevices = async () => {
-  return await http.get("/newDevices");
+  const { data } = await http.get("/newDevices");
+  return data;
 };
 
 const useNewDevices = () =>

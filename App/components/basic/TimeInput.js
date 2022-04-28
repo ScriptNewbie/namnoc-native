@@ -89,6 +89,7 @@ function TimeInput({
                   mode="time"
                   value={tempValue}
                   display="spinner"
+                  themeVariant="light"
                 ></DateTimePicker>
                 <View style={styles.buttonGroup}>
                   <Button

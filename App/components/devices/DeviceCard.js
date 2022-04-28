@@ -9,13 +9,12 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
 
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 import Button from "../basic/Button";
-import deleteDevice from "../../tools/deleteDevice";
+import useDeleteDevice from "../../hooks/useDeleteDevice";
 
 function DeviceCard({ device }) {
   const navigation = useNavigation();
@@ -26,7 +25,7 @@ function DeviceCard({ device }) {
       setLoading(styles.loadingNotVisible);
     }
   }, [loading]);
-  const queryClient = useQueryClient();
+  const deviceDelete = useDeleteDevice();
 
   const { ip, temp, alive, id, opened } = device;
   let { name } = device;
@@ -46,7 +45,7 @@ function DeviceCard({ device }) {
       <Button
         style={styles.delete}
         onPress={() => {
-          deleteDevice(device, queryClient);
+          deviceDelete.mutate(device);
         }}
       >
         <FontAwesome name="trash" size={30} color={"white"} />

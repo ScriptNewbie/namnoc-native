@@ -1,7 +1,6 @@
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useQueryClient } from "react-query";
 
 import Screen from "../components/basic/Screen";
 import TextInput from "../components/basic/TextInput";
@@ -10,13 +9,19 @@ import Button from "../components/basic/Button";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
-import deleteDevice from "../tools/deleteDevice";
+import useDeleteDevice from "../hooks/useDeleteDevice";
 
 function Device({ route }) {
   const [device, setDevice] = useState(route.params);
   const [oldName] = useState({ ...device }.name);
-  const queryClient = useQueryClient();
+
   const navigation = useNavigation();
+  const deleteDevice = useDeleteDevice({
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
+
   const { name, schedule } = device;
 
   const updateSchedule = (schedule) => {
@@ -42,8 +47,7 @@ function Device({ route }) {
         <Button
           text="Usuń z systemu"
           onPress={() => {
-            deleteDevice(device, queryClient);
-            navigation.goBack();
+            deleteDevice.mutate(device);
           }}
           style={styles.delete}
         />
