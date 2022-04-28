@@ -8,6 +8,6 @@ const fetchNewDevices = async () => {
 
 const useNewDevices = () =>
   useQuery("newDevices", fetchNewDevices, {
-    refetchInterval: 1000,
+    refetchInterval: 5000,
   });
 export default useNewDevices;

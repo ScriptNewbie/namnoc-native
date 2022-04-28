@@ -1,5 +1,6 @@
 import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import React from "react";
+import { useQueryClient } from "react-query";
 
 import DevicesList from "../components/devices/DevicesList";
 import Screen from "../components/basic/FullScreen";
@@ -10,6 +11,7 @@ import useNewDevices from "../hooks/useNewDevices";
 import useDevices from "../hooks/useDevices";
 
 function Main() {
+  const queryClient = useQueryClient();
   const {
     data: newDevices,
     isLoading: newDevicesLoading,
@@ -62,6 +64,10 @@ function Main() {
   return (
     <Screen>
       <FlatList
+        refreshing={devicesLoading || newDevicesLoading}
+        onRefresh={() => {
+          queryClient.invalidateQueries();
+        }}
         style={styles.container}
         data={items}
         keyExtractor={(item) => item.id.toString()}
