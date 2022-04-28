@@ -1,7 +1,13 @@
-import { TouchableWithoutFeedback, StyleSheet, View } from "react-native";
+import {
+  TouchableWithoutFeedback,
+  StyleSheet,
+  View,
+  Modal,
+} from "react-native";
 import colors from "../../config/colors";
 import Text from "./Text";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import React, { useState } from "react";
 
 function TimeInput({
@@ -52,13 +58,7 @@ function TimeInput({
         </View>
       </TouchableWithoutFeedback>
       {!disabled && (
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="time"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          date={pickedDate}
-        />
+        <Modal visible={isDatePickerVisible} animationType={"slide"}></Modal>
       )}
     </View>
   );
