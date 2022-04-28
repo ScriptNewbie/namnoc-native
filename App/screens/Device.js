@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -10,10 +10,35 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 import useDeleteDevice from "../hooks/useDeleteDevice";
+import useModifyDevice from "../hooks/useModifyDevice";
 
 function Device({ route }) {
   const [device, setDevice] = useState(route.params);
   const [oldName] = useState({ ...device }.name);
+  const modifyDevice = useModifyDevice({
+    onSuccess: (response) => {
+      Alert.alert(
+        "Sukces!",
+        "Czy chcesz pozostać na ekranie konfiguracji urządzenia " +
+          response.name +
+          "?",
+        [
+          {
+            text: "Tak",
+            onPress: () => {
+              setDevice(response);
+            },
+          },
+          {
+            text: "Nie",
+            onPress: () => {
+              navigation.goBack();
+            },
+          },
+        ]
+      );
+    },
+  });
 
   const navigation = useNavigation();
   const deleteDevice = useDeleteDevice({
@@ -30,14 +55,14 @@ function Device({ route }) {
     setDevice(deviceCopy);
   };
 
-  changeName = (value) => {
+  const changeName = (value) => {
     const deviceCopy = { ...device };
     deviceCopy.name = value;
     setDevice(deviceCopy);
   };
 
   const saveSettings = () => {
-    navigation.goBack();
+    modifyDevice.mutate(device);
   };
 
   return (

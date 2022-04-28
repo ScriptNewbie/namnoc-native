@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 import DevicesList from "../components/devices/DevicesList";
 import Screen from "../components/basic/FullScreen";

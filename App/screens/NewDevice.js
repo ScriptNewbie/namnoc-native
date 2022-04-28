@@ -10,11 +10,16 @@ import Button from "../components/basic/Button";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
-import http from "../services/httpServiecs";
+import useAddDevice from "../hooks/useAddDevice";
 
 function NewDevice({ route }) {
   const navigation = useNavigation();
   const queryClient = useQueryClient();
+  const addDevice = useAddDevice({
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
   const [schedule, setSchedule] = useState({
     monday: {
       times: [],
@@ -54,15 +59,9 @@ function NewDevice({ route }) {
     setSchedule({ ...schedule });
   };
 
-  const saveSettings = async () => {
+  const saveSettings = () => {
     const device = { name, schedule, ...route.params };
-    try {
-      await http.post("/devices", device);
-      queryClient.invalidateQueries();
-    } catch (e) {
-      console.log(e);
-    }
-    navigation.goBack();
+    addDevice.mutate(device);
   };
 
   return (

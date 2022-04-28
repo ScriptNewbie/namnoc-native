@@ -11,6 +11,10 @@ const http = {
     const response = await axios.post(baseUrl + resource, data);
     return response;
   },
+  put: async (resource, data) => {
+    const response = await axios.put(baseUrl + resource, data);
+    return response;
+  },
   delete: async (resource, data) => {
     const response = await axios.delete(baseUrl + resource, {
       data,
