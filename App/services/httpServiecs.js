@@ -7,7 +7,6 @@ const http = {
   get: async (resource) => {
     const baseUrl = await hubAddress;
     const response = await axios.get(baseUrl + resource);
-    console.log(baseUrl);
     return response;
   },
   post: async (resource, data) => {

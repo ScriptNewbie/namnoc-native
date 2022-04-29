@@ -1,7 +1,7 @@
 import { StyleSheet, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import RNRestart from "react-native-restart";
+import * as Updates from "expo-updates";
 
 import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
@@ -27,7 +27,7 @@ function Settings() {
   } = useHubAddress();
   const modifyHubAddress = useModifyHubAddress({
     onSuccess: () => {
-      RNRestart.Restart();
+      Updates.reloadAsync();
     },
   });
   const [hubIp, setHubIp] = useState(hubAddress);
@@ -112,7 +112,7 @@ function Settings() {
           }}
           label={"Adres huba:"}
         ></TextInput>
-        {isSuccess && (
+        {isSuccess && !hubAdressTouched && (
           <>
             <TextInput
               onChangeText={(value) => {
@@ -229,8 +229,8 @@ function Settings() {
         )}
         <Button
           onPress={() => {
-            if (isSuccess) modifySettings.mutate(settings);
             if (hubAdressTouched) return modifyHubAddress.mutate(hubIp);
+            if (isSuccess) return modifySettings.mutate(settings);
             navigation.goBack();
           }}
           text="Zapisz ustawienia"
