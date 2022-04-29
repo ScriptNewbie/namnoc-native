@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import React from "react";
 import { useQueryClient } from "react-query";
 
@@ -24,7 +24,8 @@ function Main() {
   } = useDevices();
 
   const items = [
-    { id: "1", content: <TopBar /> },
+    { id: "1", content: <View style={styles.topMargin} /> },
+    { id: "5", content: <TopBar /> },
     { id: "10", content: <Text style={styles.texts}>Pokoje:</Text> },
     {
       id: "20",
@@ -80,6 +81,7 @@ function Main() {
 const styles = StyleSheet.create({
   texts: { fontSize: fonts.sizeHeader, marginBottom: 10, marginTop: 10 },
   container: { paddingLeft: 10, paddingRight: 10 },
+  topMargin: { height: 10 },
 });
 
 export default Main;
