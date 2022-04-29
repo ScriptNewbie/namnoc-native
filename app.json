@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "namnoc-native",
+    "name": "NamNoc",
     "slug": "namnoc-native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,11 +13,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zettawhit.namnoc"
     },
     "android": {
       "adaptiveIcon": {
