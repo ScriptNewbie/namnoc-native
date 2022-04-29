@@ -1,6 +1,7 @@
 import { StyleSheet, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import RNRestart from "react-native-restart";
 
 import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
@@ -16,6 +17,7 @@ import useHubAddress from "../hooks/useHubAddress";
 import useModifyHubAddress from "../hooks/useModifyHubAddress";
 
 function Settings() {
+  const [hubAdressTouched, setHubAddressTouched] = useState(false);
   const navigation = useNavigation();
   const { data: options, isSuccess, isFetching, isError } = useSettings();
   const {
@@ -23,7 +25,11 @@ function Settings() {
     isFetching: ipDisabled,
     isSuccess: ipSuccess,
   } = useHubAddress();
-  const modifyHubAddress = useModifyHubAddress();
+  const modifyHubAddress = useModifyHubAddress({
+    onSuccess: () => {
+      RNRestart.Restart();
+    },
+  });
   const [hubIp, setHubIp] = useState(hubAddress);
   const [settings, setSettings] = useState(
     isSuccess
@@ -100,7 +106,10 @@ function Settings() {
         <TextInput
           disabled={ipDisabled}
           value={hubIp}
-          onChangeText={setHubIp}
+          onChangeText={(value) => {
+            setHubIp(value);
+            setHubAddressTouched(true);
+          }}
           label={"Adres huba:"}
         ></TextInput>
         {isSuccess && (
@@ -220,8 +229,9 @@ function Settings() {
         )}
         <Button
           onPress={() => {
-            modifySettings.mutate(settings);
-            modifyHubAddress.mutate(hubIp);
+            if (isSuccess) modifySettings.mutate(settings);
+            if (hubAdressTouched) return modifyHubAddress.mutate(hubIp);
+            navigation.goBack();
           }}
           text="Zapisz ustawienia"
           style={styles.submit}
