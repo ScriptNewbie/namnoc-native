@@ -7,7 +7,7 @@ const fetchFurnace = async () => {
 };
 
 const useFurnace = () =>
-  useQuery("settings", fetchFurnace, {
+  useQuery("furnace", fetchFurnace, {
     refetchInterval: 5000,
   });
 export default useFurnace;
