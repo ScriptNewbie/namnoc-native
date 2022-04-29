@@ -1,12 +1,28 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import fonts from "../../config/fonts";
 import Text from "../basic/Text";
+import useTime from "../../hooks/useTime";
 
-function SystemTime({ date }) {
+function SystemTime() {
+  const { data: time, isSuccess } = useTime();
+  const daysOfWeek = [
+    "Niedziela",
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota",
+  ];
+
   return (
     <View style={styles.systemTime}>
-      <Text style={styles.texts}>Poniedziałek</Text>
-      <Text style={styles.texts}>{date.time}</Text>
+      {isSuccess && (
+        <>
+          <Text style={styles.texts}>{daysOfWeek[time.dayOfWeek]}</Text>
+          <Text style={styles.texts}>{time.time}</Text>
+        </>
+      )}
     </View>
   );
 }

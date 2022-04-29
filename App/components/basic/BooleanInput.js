@@ -11,7 +11,7 @@ function BooleanInput({ label, style, value, onChange, ...otherProps }) {
           {label}:
         </Text>
       )}
-      <Switch onValueChange={onChange} value={value} />
+      <Switch onValueChange={onChange} value={value} {...otherProps} />
       {label && !isAndroid && (
         <Text style={styles.label} value={value}>
           {label}.

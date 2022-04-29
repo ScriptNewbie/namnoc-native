@@ -13,7 +13,7 @@ function TopBar() {
   return (
     <View style={styles.topBar}>
       <Furnace furnace={furnace} />
-      <SystemTime date={{ time: "10:00" }} />
+      <SystemTime />
       <Button>
         <Feather
           name="settings"
