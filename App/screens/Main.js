@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 
 import DevicesList from "../components/devices/DevicesList";
@@ -11,16 +11,22 @@ import useNewDevices from "../hooks/useNewDevices";
 import useDevices from "../hooks/useDevices";
 
 function Main() {
+  const [pulledTimestamps, setPulledTimestamps] = useState({
+    devices: null,
+    newDevices: null,
+  });
   const queryClient = useQueryClient();
   const {
     data: newDevices,
     isLoading: newDevicesLoading,
     isSuccess: newDevicesSuccess,
+    dataUpdatedAt: devicesUpdatedAt,
   } = useNewDevices();
   const {
     data: devices,
     isLoading: devicesLoading,
     isSuccess: devicesSuccess,
+    dataUpdatedAt: newDevicesUpdatedAt,
   } = useDevices();
 
   const items = [
@@ -65,8 +71,15 @@ function Main() {
   return (
     <Screen>
       <FlatList
-        refreshing={devicesLoading || newDevicesLoading}
+        refreshing={
+          devicesUpdatedAt === pulledTimestamps["devices"] ||
+          newDevicesUpdatedAt === pulledTimestamps["newDevices"]
+        }
         onRefresh={() => {
+          setPulledTimestamps({
+            devices: devicesUpdatedAt,
+            newDevices: newDevicesUpdatedAt,
+          });
           queryClient.invalidateQueries();
         }}
         style={styles.container}

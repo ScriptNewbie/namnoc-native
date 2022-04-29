@@ -12,7 +12,7 @@ function TopBar() {
   const navigation = useNavigation();
   return (
     <View style={styles.topBar}>
-      <Furnace furnace={furnace} />
+      <Furnace />
       <SystemTime />
       <Button>
         <Feather
