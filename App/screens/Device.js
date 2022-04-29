@@ -1,8 +1,8 @@
-import { StyleSheet, ScrollView, Alert } from "react-native";
+import { StyleSheet, Alert, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import Screen from "../components/basic/Screen";
+import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
 import Text from "../components/basic/Text";
 import Button from "../components/basic/Button";
@@ -67,7 +67,7 @@ function Device({ route }) {
 
   return (
     <Screen>
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>{oldName}</Text>
         <Button
           text="Usuń z systemu"
@@ -92,7 +92,7 @@ function Device({ route }) {
           onPress={saveSettings}
           style={styles.submit}
         />
-      </ScrollView>
+      </View>
     </Screen>
   );
 }

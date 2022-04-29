@@ -38,7 +38,9 @@ const StackNavigator = () => (
 export default function App() {
   return (
     <>
-      {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+      {Platform.OS === "ios" && (
+        <StatusBar barStyle="dark-content" translucent />
+      )}
       <NavigationContainer theme={AppTheme}>
         <QueryClientProvider client={queryClient}>
           <StackNavigator />

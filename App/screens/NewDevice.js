@@ -1,9 +1,9 @@
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryClient } from "react-query";
 
-import Screen from "../components/basic/Screen";
+import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
 import Text from "../components/basic/Text";
 import Button from "../components/basic/Button";
@@ -66,7 +66,7 @@ function NewDevice({ route }) {
 
   return (
     <Screen>
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View>
           <Text style={styles.title}>Nowe urządzenie</Text>
           <Text style={styles.id}>{id}</Text>
@@ -86,7 +86,7 @@ function NewDevice({ route }) {
           onPress={saveSettings}
           style={styles.submit}
         />
-      </ScrollView>
+      </View>
     </Screen>
   );
 }

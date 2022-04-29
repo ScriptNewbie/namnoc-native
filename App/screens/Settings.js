@@ -1,7 +1,7 @@
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 
-import Screen from "../components/basic/Screen";
+import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
 import Text from "../components/basic/Text";
 import TimeInput from "../components/basic/TimeInput";
@@ -17,7 +17,7 @@ function Settings() {
 
   return (
     <Screen>
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>Ustawienia</Text>
         <TextInput label={"Adres huba:"}></TextInput>
         <TextInput label={"Adres brokera MQTT:"}></TextInput>
@@ -53,7 +53,7 @@ function Settings() {
         <TextInput label={"Nazwa Koszyka:"}></TextInput>
         <TextInput label={"Token autoryzacji:"}></TextInput>
         <Button text="Zapisz ustawienia" style={styles.submit} />
-      </ScrollView>
+      </View>
     </Screen>
   );
 }
