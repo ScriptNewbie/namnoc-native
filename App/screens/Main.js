@@ -1,6 +1,7 @@
 import { StyleSheet, FlatList, View } from "react-native";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
+import { useNavigation } from "@react-navigation/native";
 
 import DevicesList from "../components/devices/DevicesList";
 import Screen from "../components/basic/FullScreen";
@@ -9,8 +10,12 @@ import TopBar from "../components/topBar";
 import fonts from "../config/fonts";
 import useNewDevices from "../hooks/useNewDevices";
 import useDevices from "../hooks/useDevices";
+import useOtherThings from "../hooks/useOtherThings";
+import Button from "../components/basic/Button";
+import colors from "../config/colors";
 
 function Main() {
+  const navigation = useNavigation();
   const [pulledTimestamps, setPulledTimestamps] = useState({
     devices: null,
     newDevices: null,
@@ -29,9 +34,59 @@ function Main() {
     dataUpdatedAt: newDevicesUpdatedAt,
   } = useDevices();
 
+  const { data: otherThings, isError, isSuccess } = useOtherThings();
+
   const items = [
     { id: "1", content: <View style={styles.topMargin} /> },
     { id: "5", content: <TopBar /> },
+    {
+      id: "6",
+      content: (
+        <>
+          {isError && (
+            <Button
+              style={[styles.margins, styles.connectionIssue]}
+              text="Brak połączenia z HUBem!"
+              onPress={() => {
+                navigation.navigate("Settings");
+              }}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      id: "7",
+      content: (
+        <>
+          {isSuccess && !otherThings.optionsSetByUser && (
+            <Button
+              style={[styles.margins, styles.configureHub]}
+              text="Przeprowadź wstępną konfigurację huba!"
+              onPress={() => {
+                navigation.navigate("Settings");
+              }}
+            />
+          )}
+        </>
+      ),
+    },
+    {
+      id: "8",
+      content: (
+        <>
+          {isSuccess && !otherThings.mqttConnected && (
+            <Button
+              style={[styles.margins, styles.connectionIssue]}
+              onPress={() => {
+                navigation.navigate("Settings");
+              }}
+              text="Brak połączenia z broakerem MQTT!"
+            />
+          )}
+        </>
+      ),
+    },
     { id: "10", content: <Text style={styles.texts}>Pokoje:</Text> },
     {
       id: "20",
@@ -95,6 +150,9 @@ const styles = StyleSheet.create({
   texts: { fontSize: fonts.sizeHeader, marginBottom: 10, marginTop: 10 },
   container: { paddingLeft: 10, paddingRight: 10 },
   topMargin: { height: 10 },
+  margins: { marginTop: 10 },
+  configureHub: { backgroundColor: colors.light.warning },
+  connectionIssue: { backgroundColor: colors.light.discard },
 });
 
 export default Main;

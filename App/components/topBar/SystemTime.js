@@ -2,6 +2,7 @@ import { StyleSheet, View, ActivityIndicator } from "react-native";
 import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 import useTime from "../../hooks/useTime";
+import colors from "../../config/colors";
 
 function SystemTime() {
   const { data: time, isSuccess } = useTime();
@@ -17,11 +18,13 @@ function SystemTime() {
 
   return (
     <View style={styles.systemTime}>
-      {isSuccess && (
+      {isSuccess ? (
         <>
           <Text style={styles.texts}>{daysOfWeek[time.dayOfWeek]}</Text>
           <Text style={styles.texts}>{time.time}</Text>
         </>
+      ) : (
+        <ActivityIndicator color={colors.light.primary} />
       )}
     </View>
   );
