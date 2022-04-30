@@ -104,6 +104,8 @@ function Settings() {
       <View style={styles.container}>
         <Text style={styles.title}>Ustawienia</Text>
         <TextInput
+          keyboardType="url"
+          autoCapitalize="none"
           disabled={ipDisabled}
           value={hubIp}
           onChangeText={(value) => {
@@ -118,6 +120,8 @@ function Settings() {
               onChangeText={(value) => {
                 updateField("mqttaddress", value);
               }}
+              keyboardType="url"
+              autoCapitalize="none"
               value={settings.mqttaddress}
               disabled={disabled}
               label={"Adres brokera MQTT:"}
@@ -126,6 +130,8 @@ function Settings() {
               onChangeText={(value) => {
                 updateField("mqtttopic", value);
               }}
+              keyboardType="email-address"
+              autoCapitalize="none"
               value={settings.mqtttopic}
               disabled={disabled}
               label={"Temat MQTT huba:"}
@@ -134,6 +140,8 @@ function Settings() {
               onChangeText={(value) => {
                 updateField("mqttfurnacetopic", value);
               }}
+              keyboardType="email-address"
+              autoCapitalize="none"
               value={settings.mqttfurnacetopic}
               disabled={disabled}
               label={"Temat MQTT pieca:"}
@@ -142,6 +150,8 @@ function Settings() {
               onChangeText={(value) => {
                 updateField("mqttuser", value);
               }}
+              keyboardType="email-address"
+              autoCapitalize="none"
               value={settings.mqttuser}
               disabled={disabled}
               label={"Użytkownik MQTT:"}
@@ -199,6 +209,8 @@ function Settings() {
               }}
               value={settings.influxdb.url}
               disabled={!settings.usedb}
+              keyboardType="url"
+              autoCapitalize="none"
               label={"Adres bazy danych:"}
             ></TextInput>
             <TextInput
@@ -208,6 +220,8 @@ function Settings() {
               value={settings.influxdb.organisation}
               disabled={!settings.usedb}
               label={"Nazwa organizacji:"}
+              keyboardType="email-address"
+              autoCapitalize="none"
             ></TextInput>
             <TextInput
               onChangeText={(value) => {
@@ -216,12 +230,15 @@ function Settings() {
               value={settings.influxdb.bucket}
               disabled={!settings.usedb}
               label={"Nazwa Koszyka:"}
+              keyboardType="email-address"
+              autoCapitalize="none"
             ></TextInput>
             <TextInput
               onChangeText={(value) => {
                 updateInfluxField("key", value);
               }}
               value={settings.influxdb.key}
+              secureTextEntry={true}
               disabled={!settings.usedb}
               label={"Token autoryzacji:"}
             ></TextInput>
