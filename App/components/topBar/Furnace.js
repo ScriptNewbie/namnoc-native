@@ -12,7 +12,7 @@ function Furnace() {
   }
   return (
     <Button style={styles.button}>
-      <FontAwesome name={icon} size={32}></FontAwesome>
+      {!!icon && <FontAwesome name={icon} size={32}></FontAwesome>}
     </Button>
   );
 }
