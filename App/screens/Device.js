@@ -1,4 +1,4 @@
-import { StyleSheet, Alert, View } from "react-native";
+import { StyleSheet, Alert, View, Platform } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -17,26 +17,28 @@ function Device({ route }) {
   const [oldName] = useState({ ...device }.name);
   const modifyDevice = useModifyDevice({
     onSuccess: (response) => {
-      Alert.alert(
-        "Sukces!",
-        "Czy chcesz pozostać na ekranie konfiguracji urządzenia " +
-          response.name +
-          "?",
-        [
-          {
-            text: "Tak",
-            onPress: () => {
-              setDevice(response);
-            },
-          },
-          {
-            text: "Nie",
-            onPress: () => {
-              navigation.goBack();
-            },
-          },
-        ]
-      );
+      Platform.OS === "web"
+        ? navigation.goBack()
+        : Alert.alert(
+            "Sukces!",
+            "Czy chcesz pozostać na ekranie konfiguracji urządzenia " +
+              response.name +
+              "?",
+            [
+              {
+                text: "Tak",
+                onPress: () => {
+                  setDevice(response);
+                },
+              },
+              {
+                text: "Nie",
+                onPress: () => {
+                  navigation.goBack();
+                },
+              },
+            ]
+          );
     },
   });
 
