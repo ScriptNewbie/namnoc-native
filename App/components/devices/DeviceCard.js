@@ -18,11 +18,11 @@ import useDeleteDevice from "../../hooks/useDeleteDevice";
 
 function DeviceCard({ device }) {
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(styles.loadingNotVisible);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (loading.opacity) {
+    if (loading) {
       navigation.navigate(navigationPath, device);
-      setLoading(styles.loadingNotVisible);
+      setLoading(false);
     }
   }, [loading]);
   const deviceDelete = useDeleteDevice();
@@ -57,7 +57,7 @@ function DeviceCard({ device }) {
       <Swipeable renderRightActions={() => rightAction}>
         <TouchableWithoutFeedback
           onPress={() => {
-            setLoading(styles.loadingVisible);
+            setLoading(true);
           }}
         >
           <View style={[styles.deviceCard, opacity]}>
@@ -70,7 +70,13 @@ function DeviceCard({ device }) {
               </Text>
             </View>
             <View style={styles.rightSide}>
-              <ActivityIndicator color={colors.light.primary} style={loading} />
+              <ActivityIndicator
+                color={colors.light.primary}
+                style={[
+                  styles.loadingNotVisible,
+                  loading && styles.loadingVisible,
+                ]}
+              />
               <FontAwesome5
                 color={opened ? colors.light.discard : colors.light.primary}
                 name="thermometer-half"

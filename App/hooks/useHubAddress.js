@@ -1,12 +1,16 @@
 import { useQuery } from "react-query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
 const getHubAddress = async () => {
-  const value = await AsyncStorage.getItem("hubIp");
-  if (value !== null) {
+  const value =
+    Platform.OS === "web"
+      ? document.cookie
+      : await AsyncStorage.getItem("hubIp");
+  if (value) {
     return value;
   }
-  return "http://127.0.0.1:8080";
+  return "http://192.168.120.155:8080";
 };
 
 const useHubAddress = () =>

@@ -2,6 +2,7 @@ import { StyleSheet, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as Updates from "expo-updates";
+import { Platform } from "react-native";
 
 import Screen from "../components/basic/SafeBottomScrollableScreen";
 import TextInput from "../components/basic/TextInput";
@@ -27,7 +28,7 @@ function Settings() {
   } = useHubAddress();
   const modifyHubAddress = useModifyHubAddress({
     onSuccess: () => {
-      Updates.reloadAsync();
+      Platform.OS === "web" ? location.reload() : Updates.reloadAsync();
     },
   });
   const [hubIp, setHubIp] = useState(hubAddress);
