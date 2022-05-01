@@ -2,8 +2,12 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
+const cookie =
+  document.cookie && document.cookie.startsWith("hub=http")
+    ? document.cookie.substring(4)
+    : "http://192.168.120.155:8080";
 const hubAddress =
-  Platform.OS === "web" ? document.cookie : AsyncStorage.getItem("hubIp");
+  Platform.OS === "web" ? cookie : AsyncStorage.getItem("hubIp");
 
 const http = {
   get: async (resource) => {

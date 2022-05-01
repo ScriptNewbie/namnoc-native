@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
 const modifyCookie = (value) => {
-  document.cookie = value;
+  document.cookie = "hub=" + value;
   return true;
 };
 

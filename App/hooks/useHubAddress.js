@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 const getHubAddress = async () => {
   const value =
     Platform.OS === "web"
-      ? document.cookie
+      ? document.cookie.substring(4)
       : await AsyncStorage.getItem("hubIp");
   if (value) {
     return value;
