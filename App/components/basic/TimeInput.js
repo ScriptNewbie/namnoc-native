@@ -6,6 +6,7 @@ import {
   Modal,
   Button,
   SafeAreaView,
+  Dimensions,
 } from "react-native";
 import colors from "../../config/colors";
 import Text from "./Text";
@@ -61,6 +62,7 @@ function TimeInput({
     setTempValue(target.value);
   };
 
+  const screenWidth = Dimensions.get("window").width;
   let disabledColor = {};
   if (disabled) disabledColor = styles.disabledColor;
   return (
@@ -69,7 +71,8 @@ function TimeInput({
       {Platform.OS === "web" ? (
         <input
           style={{
-            fontSize: fonts.sizeDefault + 3,
+            height: 2 * fonts.sizeDefault,
+            width: screenWidth / 5,
             fontFamily: fonts.default,
             backgroundColor: disabled
               ? colors.light.disabled
@@ -77,6 +80,7 @@ function TimeInput({
             borderRadius: 5,
             borderWidth: 1,
             textAlign: "center",
+            alignSelf: "center",
           }}
           type="time"
           disabled={disabled}
@@ -84,7 +88,7 @@ function TimeInput({
           onChange={handleWebTempChange}
           onBlur={() => {
             handleChange({ type: "set" }, new Date("2000-01-01T" + tempValue));
-            setTempValue(value);
+            setTempValue();
           }}
         />
       ) : (

@@ -10,7 +10,7 @@ const getHubAddress = async () => {
   if (value) {
     return value;
   }
-  return "http://192.168.120.155:8080";
+  return "http://";
 };
 
 const useHubAddress = () =>
