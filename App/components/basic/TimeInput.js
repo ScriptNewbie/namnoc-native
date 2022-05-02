@@ -6,7 +6,6 @@ import {
   Modal,
   Button,
   SafeAreaView,
-  Dimensions,
 } from "react-native";
 import colors from "../../config/colors";
 import Text from "./Text";
@@ -62,7 +61,6 @@ function TimeInput({
     setTempValue(target.value);
   };
 
-  const screenWidth = Dimensions.get("window").width;
   let disabledColor = {};
   if (disabled) disabledColor = styles.disabledColor;
   return (
@@ -72,7 +70,8 @@ function TimeInput({
         <input
           style={{
             height: 2 * fonts.sizeDefault,
-            width: screenWidth / 5,
+            width: "95%",
+            fontSize: fonts.sizeDefault,
             fontFamily: fonts.default,
             backgroundColor: disabled
               ? colors.light.disabled
