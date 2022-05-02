@@ -79,9 +79,9 @@ function DeviceCard({ device }) {
               />
               <FontAwesome5
                 color={opened ? colors.light.discard : colors.light.primary}
+                size={fonts.sizeTitle}
                 name="thermometer-half"
                 style={styles.tempIcon}
-                size={styles.temp.fontSize}
               />
               <Text style={styles.temp}>{temp}</Text>
             </View>
