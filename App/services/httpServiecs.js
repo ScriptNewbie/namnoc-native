@@ -2,14 +2,18 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
-const cookie =
-  Platform.OS === "web" &&
-  document.cookie &&
-  document.cookie.startsWith("hub=http")
-    ? document.cookie.substring(4)
-    : "http://192.168.120.155:8080";
+import getHubAddressForWeb from "../webTools/getHubAddress";
+
+const getHubAddressForMobile = async () => {
+  try {
+    return await AsyncStorage.getItem("hubIp");
+  } catch (e) {
+    return "http://192.168.120.155:8080";
+  }
+};
+
 const hubAddress =
-  Platform.OS === "web" ? cookie : AsyncStorage.getItem("hubIp");
+  Platform.OS === "web" ? getHubAddressForWeb() : getHubAddressForMobile();
 
 const http = {
   get: async (resource) => {
