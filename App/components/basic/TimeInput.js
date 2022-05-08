@@ -61,8 +61,7 @@ function TimeInput({
     setTempValue(target.value);
   };
 
-  let disabledColor = {};
-  if (disabled) disabledColor = styles.disabledColor;
+  const disabledColor = disabled ? styles.disabledColor : {};
   return (
     <View style={[styles.container, style]}>
       {label && <Text>{label}</Text>}

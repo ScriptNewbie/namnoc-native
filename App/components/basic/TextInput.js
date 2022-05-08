@@ -10,8 +10,7 @@ function AppTextInput({
   disabled = false,
   ...otherProps
 }) {
-  let disabledColor = {};
-  if (disabled) disabledColor = styles.disabledColor;
+  const disabledColor = disabled ? styles.disabledColor : {};
   return (
     <View style={[styles.container, style]}>
       {label && <Text style={labelStyle}>{label}</Text>}

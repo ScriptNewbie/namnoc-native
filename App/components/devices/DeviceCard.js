@@ -31,7 +31,7 @@ function DeviceCard({ device }) {
   let { name } = device;
   let opacity = {};
   let notAliveIpColor = {};
-  //Device grayed out if not alieve
+  //Device grayed out if not alive
   if (!alive) {
     opacity = StyleSheet.create({ opacity: styles.notAlive.opacity });
     notAliveIpColor = StyleSheet.create({ color: styles.notAlive.color });
