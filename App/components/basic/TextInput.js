@@ -2,6 +2,8 @@ import { TextInput, StyleSheet, View } from "react-native";
 import fonts from "../../config/fonts";
 import colors from "../../config/colors";
 import Text from "./Text";
+import { useContext } from "react";
+import ColorMode from "../../contexts/colorMode";
 
 function AppTextInput({
   label,
@@ -10,6 +12,9 @@ function AppTextInput({
   disabled = false,
   ...otherProps
 }) {
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
+
   const disabledColor = disabled ? styles.disabledColor : {};
   return (
     <View style={[styles.container, style]}>
@@ -24,20 +29,22 @@ function AppTextInput({
   );
 }
 
-const styles = StyleSheet.create({
-  border: {},
-  input: {
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 5,
-    fontFamily: fonts.default,
-    fontSize: fonts.sizeDefault,
-    borderColor: colors.light.soft,
-  },
-  container: {
-    flex: 1,
-  },
-  disabledColor: { backgroundColor: colors.light.disabled },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    input: {
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 5,
+      fontFamily: fonts.default,
+      fontSize: fonts.sizeDefault,
+      borderColor: colors[mode].soft,
+      color: colors[mode].primary,
+    },
+    container: {
+      flex: 1,
+    },
+    disabledColor: { backgroundColor: colors[mode].disabled },
+  });
+};
 
 export default AppTextInput;

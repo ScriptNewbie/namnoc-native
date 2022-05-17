@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, View, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,9 +13,11 @@ import useDevices from "../hooks/useDevices";
 import useOtherThings from "../hooks/useOtherThings";
 import Button from "../components/basic/Button";
 import colors from "../config/colors";
+import ColorMode from "../contexts/colorMode";
 
 function Main() {
   const navigation = useNavigation();
+  const colorMode = useContext(ColorMode);
   const [pulledTimestamps, setPulledTimestamps] = useState({
     devices: null,
     newDevices: null,
@@ -35,6 +37,8 @@ function Main() {
   } = useDevices();
 
   const { data: otherThings, isError, isSuccess } = useOtherThings();
+
+  const styles = generateStyles(colorMode);
 
   const items = [
     { id: "1", content: <View style={styles.topMargin} /> },
@@ -147,14 +151,16 @@ function Main() {
   );
 }
 
-const styles = StyleSheet.create({
-  texts: { fontSize: fonts.sizeHeader, marginBottom: 10, marginTop: 10 },
-  container: { paddingLeft: 10, paddingRight: 10 },
-  topMargin: { height: 10 },
-  margins: { marginTop: 10 },
-  configureHub: { backgroundColor: colors.light.warning },
-  connectionIssue: { backgroundColor: colors.light.discard },
-  safeBottom: { height: 20 },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    texts: { fontSize: fonts.sizeHeader, marginBottom: 10, marginTop: 10 },
+    container: { paddingLeft: 10, paddingRight: 10 },
+    topMargin: { height: 10 },
+    margins: { marginTop: 10 },
+    configureHub: { backgroundColor: colors[mode].warning },
+    connectionIssue: { backgroundColor: colors[mode].discard },
+    safeBottom: { height: 20 },
+  });
+};
 
 export default Main;

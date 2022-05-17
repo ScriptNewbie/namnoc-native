@@ -1,12 +1,14 @@
 import { DefaultTheme } from "@react-navigation/native";
 import colors from "../config/colors";
 
-const AppTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: colors.light.background,
-  },
+const generateAppTheme = (mode) => {
+  return {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colors[mode].background,
+    },
+  };
 };
 
-export default AppTheme;
+export default generateAppTheme;

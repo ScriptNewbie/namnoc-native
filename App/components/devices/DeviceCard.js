@@ -8,13 +8,14 @@ import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import colors from "../../config/colors";
 import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 import Button from "../basic/Button";
 import useDeleteDevice from "../../hooks/useDeleteDevice";
+import ColorMode from "../../contexts/colorMode";
 
 function DeviceCard({ device }) {
   const navigation = useNavigation();
@@ -26,6 +27,8 @@ function DeviceCard({ device }) {
     }
   }, [loading]);
   const deviceDelete = useDeleteDevice();
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
 
   const { ip, temp, alive, id, opened } = device;
   let { name } = device;
@@ -71,14 +74,16 @@ function DeviceCard({ device }) {
             </View>
             <View style={styles.rightSide}>
               <ActivityIndicator
-                color={colors.light.primary}
+                color={colors[colorMode].primary}
                 style={[
                   styles.loadingNotVisible,
                   loading && styles.loadingVisible,
                 ]}
               />
               <FontAwesome5
-                color={opened ? colors.light.discard : colors.light.primary}
+                color={
+                  opened ? colors[colorMode].discard : colors[colorMode].primary
+                }
                 size={fonts.sizeTitle}
                 name="thermometer-half"
                 style={styles.tempIcon}
@@ -92,49 +97,51 @@ function DeviceCard({ device }) {
   );
 }
 
-const styles = StyleSheet.create({
-  deviceCard: {
-    width: "100%",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.light.soft,
-    padding: 10,
-    flexDirection: "row",
-    backgroundColor: colors.light.background,
-  },
-  name: {
-    fontSize: fonts.sizeBig,
-  },
-  ip: {
-    color: colors.light.apply,
-    fontSize: fonts.sizeSmall,
-  },
-  leftSide: {
-    flex: 1,
-  },
-  rightSide: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  temp: {
-    fontSize: fonts.sizeTitle,
-  },
-  tempIcon: {
-    marginBottom: -1,
-    marginRight: 5,
-  },
-  notAlive: {
-    opacity: 0.5,
-    color: colors.light.soft,
-  },
-  delete: {
-    backgroundColor: colors.light.discard,
-    height: "100%",
-    padding: 20,
-    marginLeft: 10,
-  },
-  loadingVisible: { opacity: 1 },
-  loadingNotVisible: { opacity: 0 },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    deviceCard: {
+      width: "100%",
+      borderRadius: 8,
+      borderWidth: 1,
+      borderColor: colors[mode].soft,
+      padding: 10,
+      flexDirection: "row",
+      backgroundColor: colors[mode].background,
+    },
+    name: {
+      fontSize: fonts.sizeBig,
+    },
+    ip: {
+      color: colors[mode].apply,
+      fontSize: fonts.sizeSmall,
+    },
+    leftSide: {
+      flex: 1,
+    },
+    rightSide: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    temp: {
+      fontSize: fonts.sizeTitle,
+    },
+    tempIcon: {
+      marginBottom: -1,
+      marginRight: 5,
+    },
+    notAlive: {
+      opacity: 0.5,
+      color: colors[mode].soft,
+    },
+    delete: {
+      backgroundColor: colors[mode].discard,
+      height: "100%",
+      padding: 20,
+      marginLeft: 10,
+    },
+    loadingVisible: { opacity: 1 },
+    loadingNotVisible: { opacity: 0 },
+  });
+};
 
 export default DeviceCard;
