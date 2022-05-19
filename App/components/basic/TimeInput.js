@@ -8,12 +8,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import colors from "../../config/colors";
 import Text from "./Text";
 
-import React, { useState } from "react";
 import fonts from "../../config/fonts";
 import ColorMode from "../../contexts/colorMode";
 
