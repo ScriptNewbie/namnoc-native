@@ -1,9 +1,14 @@
 import { StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useContext } from "react";
+
 import Button from "../basic/Button";
 import useFurnace from "../../hooks/useFurnace";
+import ColorMode from "../../contexts/colorMode";
+import colors from "../../config/colors";
 
 function Furnace() {
+  const colorMode = useContext(ColorMode);
   const { data: furnace, isSuccess } = useFurnace();
   let icon = "";
   if (isSuccess) {
@@ -12,7 +17,13 @@ function Furnace() {
   }
   return (
     <Button style={styles.button}>
-      {!!icon && <FontAwesome name={icon} size={32}></FontAwesome>}
+      {!!icon && (
+        <FontAwesome
+          color={colors[colorMode].primary}
+          name={icon}
+          size={32}
+        ></FontAwesome>
+      )}
     </Button>
   );
 }

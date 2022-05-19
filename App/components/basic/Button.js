@@ -1,9 +1,13 @@
 import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
-import colors from "../../config/colors";
+import { useContext } from "react";
 
+import colors from "../../config/colors";
 import Text from "./Text";
+import ColorMode from "../../contexts/colorMode";
 
 function Button({ children, style, text, textStyle, onPress = () => {} }) {
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.button, style]}>
@@ -14,17 +18,19 @@ function Button({ children, style, text, textStyle, onPress = () => {} }) {
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.light.primaryButton,
-    borderRadius: 10,
-    justifyContent: "center",
-    padding: 10,
-    alignItems: "center",
-  },
-  text: {
-    color: colors.light.white,
-  },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    button: {
+      backgroundColor: colors[mode].primaryButton,
+      borderRadius: 10,
+      justifyContent: "center",
+      padding: 10,
+      alignItems: "center",
+    },
+    text: {
+      color: colors[mode].white,
+    },
+  });
+};
 
 export default Button;

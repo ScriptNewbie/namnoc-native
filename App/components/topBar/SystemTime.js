@@ -1,11 +1,15 @@
 import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { useContext } from "react";
+
 import fonts from "../../config/fonts";
 import Text from "../basic/Text";
 import useTime from "../../hooks/useTime";
 import colors from "../../config/colors";
+import ColorMode from "../../contexts/colorMode";
 
 function SystemTime() {
   const { data: time, isSuccess } = useTime();
+  const colorMode = useContext(ColorMode);
   const daysOfWeek = [
     "Niedziela",
     "Poniedziałek",
@@ -24,7 +28,7 @@ function SystemTime() {
           <Text style={styles.texts}>{time.time}</Text>
         </>
       ) : (
-        <ActivityIndicator color={colors.light.primary} />
+        <ActivityIndicator color={colors[colorMode].primary} />
       )}
     </View>
   );

@@ -1,5 +1,5 @@
 import { StyleSheet, View, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as Updates from "expo-updates";
 import { Platform } from "react-native";
@@ -16,8 +16,10 @@ import useSettings from "../hooks/useSettings";
 import useModifySettings from "../hooks/useModifySettings";
 import useHubAddress from "../hooks/useHubAddress";
 import useModifyHubAddress from "../hooks/useModifyHubAddress";
+import ColorMode from "../contexts/colorMode";
 
 function Settings() {
+  const colorMode = useContext(ColorMode);
   const [hubAdressTouched, setHubAddressTouched] = useState(false);
   const navigation = useNavigation();
   const { data: options, isSuccess, isFetching, isError } = useSettings();
@@ -81,6 +83,8 @@ function Settings() {
       setHubIp(hubAddress);
     }
   }, [hubAddress]);
+
+  const styles = generateStyles(colorMode);
 
   const changeUseDbBoolean = () => {
     const newSettings = { ...settings };
@@ -259,33 +263,35 @@ function Settings() {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: fonts.sizeTitle,
-  },
-  databaseHeader: {
-    marginTop: 20,
-    fontSize: fonts.sizeHeader,
-  },
-  dayBeginEnd: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  dayBegin: {
-    marginRight: 5,
-  },
-  dayEnd: {
-    marginLeft: 5,
-  },
-  container: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  submit: {
-    backgroundColor: colors.light.apply,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    title: {
+      fontSize: fonts.sizeTitle,
+    },
+    databaseHeader: {
+      marginTop: 20,
+      fontSize: fonts.sizeHeader,
+    },
+    dayBeginEnd: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    dayBegin: {
+      marginRight: 5,
+    },
+    dayEnd: {
+      marginLeft: 5,
+    },
+    container: {
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    submit: {
+      backgroundColor: colors[mode].apply,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+  });
+};
 
 export default Settings;

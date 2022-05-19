@@ -1,10 +1,13 @@
 import { StyleSheet, View } from "react-native";
+import { useContext } from "react";
+
 import TimeInput from "../basic/TimeInput";
 import Button from "../basic/Button";
 import Text from "../basic/Text";
 import TextInput from "../basic/TextInput";
 import fonts from "../../config/fonts";
 import colors from "../../config/colors";
+import ColorMode from "../../contexts/colorMode";
 
 const daysOfWeek = [
   ["monday", "Poniedziałek", "poniedziałku"],
@@ -17,6 +20,9 @@ const daysOfWeek = [
 ];
 
 function Schedule({ schedule, updateSchedule }) {
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
+
   const copySchedule = (source, target) => {
     const scheduleCopy = JSON.parse(JSON.stringify(schedule[source]));
     schedule[target] = scheduleCopy;
@@ -219,31 +225,36 @@ function Schedule({ schedule, updateSchedule }) {
   );
 }
 
-const styles = StyleSheet.create({
-  copyFromButtons: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  copyFromButton: { margin: 2, backgroundColor: colors.light.secondaryButton },
-  copyFromButtonText: { fontSize: fonts.sizeVerySmall },
-  timePeriods: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
-  divideDeleteText: { fontSize: fonts.sizeVerySmall },
-  divideDelete: { marginLeft: 5 },
-  delete: { backgroundColor: colors.light.discard },
-  lastDelete: { opacity: 0.5 },
-  verySmallTexts: { fontSize: fonts.sizeVerySmall },
-  periodTexts: { fontSize: fonts.sizeSmall },
-  dayOfWeek: {
-    borderColor: colors.light.soft,
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 5,
-    marginTop: 5,
-  },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    copyFromButtons: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+    },
+    copyFromButton: {
+      margin: 2,
+      backgroundColor: colors[mode].secondaryButton,
+    },
+    copyFromButtonText: { fontSize: fonts.sizeVerySmall },
+    timePeriods: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+    },
+    divideDeleteText: { fontSize: fonts.sizeVerySmall },
+    divideDelete: { marginLeft: 5 },
+    delete: { backgroundColor: colors[mode].discard },
+    lastDelete: { opacity: 0.5 },
+    verySmallTexts: { fontSize: fonts.sizeVerySmall },
+    periodTexts: { fontSize: fonts.sizeSmall },
+    dayOfWeek: {
+      borderColor: colors[mode].soft,
+      borderWidth: 1,
+      borderRadius: 10,
+      padding: 5,
+      marginTop: 5,
+    },
+  });
+};
 
 export default Schedule;

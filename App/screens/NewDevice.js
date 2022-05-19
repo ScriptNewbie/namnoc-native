@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryClient } from "react-query";
 
@@ -11,6 +11,7 @@ import colors from "../config/colors";
 import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 import useAddDevice from "../hooks/useAddDevice";
+import ColorMode from "../contexts/colorMode";
 
 function NewDevice({ route }) {
   const navigation = useNavigation();
@@ -52,6 +53,8 @@ function NewDevice({ route }) {
   });
 
   const [name, setName] = useState("");
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
 
   const { id } = route.params;
 
@@ -91,27 +94,29 @@ function NewDevice({ route }) {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: fonts.sizeTitle,
-  },
-  header: {
-    marginTop: 10,
-    fontSize: fonts.sizeHeader,
-  },
-  harmonogram: {
-    fontSize: fonts.sizeBig,
-  },
-  container: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  submit: {
-    backgroundColor: colors.light.apply,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  id: { fontSize: fonts.sizeVerySmall },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    title: {
+      fontSize: fonts.sizeTitle,
+    },
+    header: {
+      marginTop: 10,
+      fontSize: fonts.sizeHeader,
+    },
+    harmonogram: {
+      fontSize: fonts.sizeBig,
+    },
+    container: {
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    submit: {
+      backgroundColor: colors[mode].apply,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    id: { fontSize: fonts.sizeVerySmall },
+  });
+};
 
 export default NewDevice;

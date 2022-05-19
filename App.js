@@ -15,43 +15,43 @@ import colors from "./App/config/colors";
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
-const colorMode = "dark";
-
-const StackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Main"
-      options={{ headerShown: false, title: "Ekran główny" }}
-      component={Main}
-    />
-    <Stack.Screen
-      name="Settings"
-      options={{
-        title: "",
-        headerStyle: { backgroundColor: colors[colorMode].background },
-      }}
-      component={Settings}
-    />
-    <Stack.Screen
-      name="Device"
-      options={{
-        title: "",
-        headerStyle: { backgroundColor: colors[colorMode].background },
-      }}
-      component={Device}
-    />
-    <Stack.Screen
-      name="NewDevice"
-      options={{
-        title: "",
-        headerStyle: { backgroundColor: colors[colorMode].background },
-      }}
-      component={NewDevice}
-    />
-  </Stack.Navigator>
-);
 
 export default function App() {
+  const colorMode = "dark";
+  const StackNavigator = () => (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Main"
+        options={{ headerShown: false, title: "Ekran główny" }}
+        component={Main}
+      />
+      <Stack.Screen
+        name="Settings"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: colors[colorMode].background },
+        }}
+        component={Settings}
+      />
+      <Stack.Screen
+        name="Device"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: colors[colorMode].background },
+        }}
+        component={Device}
+      />
+      <Stack.Screen
+        name="NewDevice"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: colors[colorMode].background },
+        }}
+        component={NewDevice}
+      />
+    </Stack.Navigator>
+  );
+
   return (
     <>
       {Platform.OS === "ios" && colorMode === "light" && (

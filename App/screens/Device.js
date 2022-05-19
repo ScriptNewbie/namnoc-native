@@ -1,5 +1,5 @@
 import { StyleSheet, Alert, View, Platform } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import Screen from "../components/basic/SafeBottomScrollableScreen";
@@ -11,8 +11,10 @@ import fonts from "../config/fonts";
 import Schedule from "../components/devices/Schedule";
 import useDeleteDevice from "../hooks/useDeleteDevice";
 import useModifyDevice from "../hooks/useModifyDevice";
+import ColorMode from "../contexts/colorMode";
 
 function Device({ route }) {
+  const colorMode = useContext(ColorMode);
   const [device, setDevice] = useState(route.params);
   const [oldName] = useState({ ...device }.name);
   const modifyDevice = useModifyDevice({
@@ -48,7 +50,7 @@ function Device({ route }) {
       navigation.goBack();
     },
   });
-
+  const styles = generateStyles(colorMode);
   const { name, schedule } = device;
 
   const updateSchedule = (schedule) => {
@@ -99,32 +101,34 @@ function Device({ route }) {
   );
 }
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: fonts.sizeTitle,
-    textAlign: "justify",
-  },
-  header: {
-    marginTop: 10,
-    fontSize: fonts.sizeHeader,
-  },
-  harmonogram: {
-    fontSize: fonts.sizeBig,
-  },
-  container: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  submit: {
-    backgroundColor: colors.light.apply,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  delete: {
-    backgroundColor: colors.light.discard,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    title: {
+      fontSize: fonts.sizeTitle,
+      textAlign: "justify",
+    },
+    header: {
+      marginTop: 10,
+      fontSize: fonts.sizeHeader,
+    },
+    harmonogram: {
+      fontSize: fonts.sizeBig,
+    },
+    container: {
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    submit: {
+      backgroundColor: colors[mode].apply,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    delete: {
+      backgroundColor: colors[mode].discard,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+  });
+};
 
 export default Device;

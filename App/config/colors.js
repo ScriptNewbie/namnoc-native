@@ -20,7 +20,7 @@ const darkModeColors = {
   white: "white",
   primaryButton: "grey",
   secondaryButton: "rgb(20,128,250)",
-  disabled: "#d8d8d8",
+  disabled: "#252525",
   warning: "#E4D00A",
 };
 

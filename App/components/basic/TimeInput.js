@@ -7,12 +7,15 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useContext } from "react";
+
 import colors from "../../config/colors";
 import Text from "./Text";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 import React, { useState } from "react";
 import fonts from "../../config/fonts";
+import ColorMode from "../../contexts/colorMode";
 
 function TimeInput({
   label,
@@ -24,6 +27,8 @@ function TimeInput({
 }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [tempValue, setTempValue] = useState();
+  const colorMode = useContext(ColorMode);
+  const styles = generateStyles(colorMode);
 
   const valueIsInt = typeof value === "number";
 
@@ -73,8 +78,8 @@ function TimeInput({
             fontSize: fonts.sizeDefault,
             fontFamily: fonts.default,
             backgroundColor: disabled
-              ? colors.light.disabled
-              : colors.light.background,
+              ? colors[colorMode].disabled
+              : colors[colorMode].background,
             borderRadius: 5,
             borderWidth: 1,
             textAlign: "center",
@@ -120,7 +125,7 @@ function TimeInput({
                       mode="time"
                       value={tempValue}
                       display="spinner"
-                      themeVariant="light"
+                      themeVariant={colorMode}
                     ></DateTimePicker>
                     <View style={styles.buttonGroup}>
                       <Button
@@ -149,44 +154,46 @@ function TimeInput({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  input: {
-    textAlign: "center",
-  },
-  inputContainer: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: colors.light.soft,
-    padding: 5,
-  },
-  disabledColor: { backgroundColor: colors.light.disabled },
-  buttonGroup: {
-    flexDirection: "row",
-    justifyContent: "center",
-    borderTopWidth: 1,
-    borderColor: colors.light.soft,
-    justifyContent: "space-evenly",
-    padding: 10,
-  },
-  modal: {
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "center",
-  },
-  modalContent: {
-    backgroundColor: colors.light.background,
-    alignSelf: "flex-end",
-    marginBottom: 10,
-    flex: 1,
-    borderRadius: 30,
-    marginLeft: 15,
-    marginRight: 15,
-    borderWidth: 1,
-    borderColor: colors.light.soft,
-  },
-});
+const generateStyles = (mode) => {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    input: {
+      textAlign: "center",
+    },
+    inputContainer: {
+      borderWidth: 1,
+      borderRadius: 5,
+      borderColor: colors[mode].soft,
+      padding: 5,
+    },
+    disabledColor: { backgroundColor: colors[mode].disabled },
+    buttonGroup: {
+      flexDirection: "row",
+      justifyContent: "center",
+      borderTopWidth: 1,
+      borderColor: colors[mode].soft,
+      justifyContent: "space-evenly",
+      padding: 10,
+    },
+    modal: {
+      flexDirection: "row",
+      flex: 1,
+      justifyContent: "center",
+    },
+    modalContent: {
+      backgroundColor: colors[mode].background,
+      alignSelf: "flex-end",
+      marginBottom: 10,
+      flex: 1,
+      borderRadius: 30,
+      marginLeft: 15,
+      marginRight: 15,
+      borderWidth: 1,
+      borderColor: colors[mode].soft,
+    },
+  });
+};
 
 export default TimeInput;
