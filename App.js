@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 const queryClient = new QueryClient();
 
 export default function App() {
-  const colorMode = "dark";
+  const colorMode = "light";
   const StackNavigator = () => (
     <Stack.Navigator>
       <Stack.Screen
