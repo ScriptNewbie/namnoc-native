@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, View, SafeAreaView } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import React, { useState, useContext } from "react";
 import { useQueryClient } from "react-query";
 import { useNavigation } from "@react-navigation/native";
@@ -126,7 +126,7 @@ function Main() {
         <Text>Błąd podczas ładowania urządzeń!</Text>
       ),
     },
-    { id: "50", content: <SafeAreaView style={styles.safeBottom} /> },
+    { id: "50", content: <View style={styles.safeBottom} /> },
   ];
   return (
     <Screen>
@@ -159,7 +159,7 @@ const generateStyles = (mode) => {
     margins: { marginTop: 10 },
     configureHub: { backgroundColor: colors[mode].warning },
     connectionIssue: { backgroundColor: colors[mode].discard },
-    safeBottom: { height: 20 },
+    safeBottom: { height: 50 },
   });
 };
 
