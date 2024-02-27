@@ -36,8 +36,8 @@ function DeviceCard({ device }) {
   let notAliveIpColor = {};
   //Device grayed out if not alive
   if (!alive) {
-    opacity = StyleSheet.create({ opacity: styles.notAlive.opacity });
-    notAliveIpColor = StyleSheet.create({ color: styles.notAlive.color });
+    opacity = { opacity: styles.notAlive.opacity };
+    notAliveIpColor = { color: styles.notAlive.color };
   }
   //Delete option available if device paired, different navigation paths
   let rightAction = <View />;
