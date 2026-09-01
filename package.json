@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.29.6",
+    "decode-uri-component": "file:vendor/decode-uri-component-compat",
     "image-size": "file:vendor/image-size-compat"
   },
   "overrides": {
@@ -44,6 +45,7 @@
     "braces": "3.0.3",
     "cross-spawn@6": "6.0.6",
     "cross-spawn@7": "7.0.5",
+    "decode-uri-component": "$decode-uri-component",
     "fast-loops": "1.1.4",
     "fast-xml-parser": "5.7.0",
     "follow-redirects": "1.16.0",
