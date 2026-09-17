@@ -41,7 +41,7 @@
     "@babel/plugin-transform-modules-systemjs": "7.29.4",
     "@xmldom/xmldom": "0.8.15",
     "axios": "$axios",
-    "brace-expansion": "1.1.18",
+    "brace-expansion": "1.1.21",
     "braces": "3.0.3",
     "cross-spawn@6": "6.0.6",
     "cross-spawn@7": "7.0.5",
