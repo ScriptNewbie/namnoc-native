@@ -1,0 +1,10 @@
+{
+  "name": "image-size",
+  "version": "2.1.0",
+  "private": true,
+  "description": "CJS callable wrapper around image-size-next for Metro compatibility",
+  "main": "index.js",
+  "dependencies": {
+    "image-size-next": "2.1.0"
+  }
+}
